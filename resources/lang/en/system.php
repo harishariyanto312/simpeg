@@ -109,7 +109,7 @@ return [
     'permit_status_ready' => 'Data Lengkap',
     'permit_status_checked' => 'Sudah Dicek',
     'employees' => 'Data Kepegawaian',
-    'employees_create' => 'Tambah Data',
+    'employees_create' => 'Tambah Data Pegawai',
     'employees_personal_data' => 'Data Pribadi',
     'employee_id' => 'Nomor Induk Karyawan',
     'employee_first_name' => 'Nama Depan',
@@ -118,5 +118,7 @@ return [
     'employee_sex' => 'Jenis Kelamin',
     'employee_sex_male' => 'Laki-laki',
     'employee_sex_female' => 'Perempuan',
-    'employee_birth_place' => 'Tempat Lahir'
+    'employee_birth_place' => 'Tempat Lahir',
+    'employee_birth_date' => 'Tanggal Lahir',
+    'employee_marital_status' => 'Status Pernikahan'
 ];
