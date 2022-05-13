@@ -1,0 +1,17 @@
+$link-decoration: none;
+$link-hover-decoration: underline;
+
+$spacer: 1rem;
+$headings-margin-bottom: $spacer;
+
+$alert-padding-y: $spacer * .5;
+
+@import "bootstrap/bootstrap";
+
+.limit-1-line {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
