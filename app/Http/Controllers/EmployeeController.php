@@ -86,7 +86,25 @@ class EmployeeController extends Controller
 
         $months = $this->months();
 
-        return view('pages.employees.create', compact('breadcrumb', 'years', 'months'));
+        $emergency_contact_relationships = [
+            __('system.relationship_wife') => __('system.relationship_wife'),
+            __('system.relationship_husband') => __('system.relationship_husband'),
+            __('system.relationship_girlfriend') => __('system.relationship_girlfriend'),
+            __('system.relationship_father') => __('system.relationship_father'),
+            __('system.relationship_mother') => __('system.relationship_mother'),
+            __('system.relationship_father_in_law') => __('system.relationship_father_in_law'),
+            __('system.relationship_mother_in_law') => __('system.relationship_mother_in_law'),
+        ];
+
+        $salary_units = [
+            'MONTH' => __('system.salary_unit_month'),
+            'WEEK' => __('system.salary_unit_week'),
+            'DAY' => __('system.salary_unit_day'),
+            'HOUR' => __('system.salary_unit_hour'),
+            'MINUTE' => __('system.salary_unit_minute'),
+        ];
+
+        return view('pages.employees.create', compact('breadcrumb', 'years', 'months', 'emergency_contact_relationships', 'salary_units'));
     }
 
     private function months()
