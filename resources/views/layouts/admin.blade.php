@@ -25,7 +25,7 @@
             <script src="{{ asset('assets/js/tinymce.js') }}"></script>    
         @endif
     </head>
-    <body class="hold-transition sidebar-mini">
+    <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
         <div class="wrapper">
             @include('layouts.sections.navbar')
             @include('layouts.sections.sidebar')

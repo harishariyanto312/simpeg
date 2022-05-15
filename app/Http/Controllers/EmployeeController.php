@@ -104,24 +104,37 @@ class EmployeeController extends Controller
             'MINUTE' => __('system.salary_unit_minute'),
         ];
 
-        return view('pages.employees.create', compact('breadcrumb', 'years', 'months', 'emergency_contact_relationships', 'salary_units'));
+        $education_types = [
+            'ELEMENTARY' => 'SD',
+            'MIDDLE' => 'SMP',
+            'HIGH' => 'SMA/SMK',
+            'D1' => 'D1',
+            'D2' => 'D2',
+            'D3' => 'D3',
+            'D4' => 'D4',
+            'BACHELOR' => 'S1',
+            'MASTER' => 'S2',
+            'DOCTORAL' => 'S3'
+        ];
+
+        return view('pages.employees.create', compact('breadcrumb', 'years', 'months', 'emergency_contact_relationships', 'salary_units', 'education_types'));
     }
 
     private function months()
     {
         return [
-            '01' => 'Januari',
-            '02' => 'Februari',
-            '03' => 'Maret',
-            '04' => 'April',
-            '05' => 'Mei',
-            '06' => 'Juni',
-            '07' => 'Juli',
-            '08' => 'Agustus',
-            '09' => 'September',
-            '10' => 'Oktober',
-            '11' => 'November',
-            '12' => 'Desember'
+            '01' => '01 - Januari',
+            '02' => '02 - Februari',
+            '03' => '03 - Maret',
+            '04' => '04 - April',
+            '05' => '05 - Mei',
+            '06' => '06 - Juni',
+            '07' => '07 - Juli',
+            '08' => '08 - Agustus',
+            '09' => '09 - September',
+            '10' => '10 - Oktober',
+            '11' => '11 - November',
+            '12' => '12 - Desember'
         ];
     }
 
@@ -133,6 +146,7 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $address = [];
         $address['detail'] = $request->address_detail;
         $address['rt'] = $request->address_rt;
