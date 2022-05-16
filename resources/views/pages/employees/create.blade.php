@@ -34,9 +34,16 @@
                             </button>
                         </div>
                         <div class="line"></div>
-                        <div class="step" data-target="#sectionEmploymentData" data-section="4">
-                            <button class="step-trigger" type="button" role="tab" aria-controls="sectionEmploymentData" id="sectionEmploymentDataTrigger">
+                        <div class="step" data-target="#sectionExps" data-section="4">
+                            <button class="step-trigger" type="button" role="tab" aria-controls="sectionExps" id="sectionExpsTrigger">
                                 <span class="bs-stepper-circle">4</span>
+                                <span class="bs-stepper-label">@lang('system.employees_work_experiences')</span>
+                            </button>
+                        </div>
+                        <div class="line"></div>
+                        <div class="step" data-target="#sectionEmploymentData" data-section="5">
+                            <button class="step-trigger" type="button" role="tab" aria-controls="sectionEmploymentData" id="sectionEmploymentDataTrigger">
+                                <span class="bs-stepper-circle">5</span>
                                 <span class="bs-stepper-label">@lang('system.employees_employment_data')</span>
                             </button>
                         </div>
@@ -45,7 +52,7 @@
                         <div id="sectionPersonalData" class="content" role="tabpanel" aria-labelledby="sectionPersonalDataTrigger">
                             <!-- Personal Data -->
                             <x-card :header="__('system.employees_personal_data')">
-                                <x-forms.text name="employee_id" :label="__('system.employee_id')" :value="old('employee_id')" />
+                                <x-forms.text name="employee_id" :label="__('system.employee_id')" :value="old('employee_id')" :is-required="true" />
             
                                 <div class="row">
                                     <div class="col-12 col-lg-4">
@@ -189,15 +196,47 @@
                             </x-card>
 
                             <x-card :header="__('system.employees_emergency_contact')">
-                                <div class="row">
-                                    <div class="col-12 col-lg-6">
-                                        <x-forms.text name="emergency_contact_name" :label="__('system.employee_emergency_contact_name')" :value="old('emergency_contact_name')" />
-                                    </div>
-                                    <div class="col-12 col-lg-6">
-                                        <x-forms.select name="emergency_contact_relationship" :label="__('system.employee_emergency_contact_relationship')" :value="old('emergency_contact_relationship')" :options="$emergency_contact_relationships" />
+                                <div class="d-none" id="exampleEmergencyContact">
+                                    <div class="row">
+                                        <div class="col-12 col-lg-4">
+                                            <x-forms.array.text name="emergency_contact_name_" :label="__('system.employee_emergency_contact_name')" value="" />
+                                        </div>
+                                        <div class="col-12 col-lg-4">
+                                            <x-forms.select name="emergency_contact_relationship_" :label="__('system.employee_emergency_contact_relationship')" value="" :options="$emergency_contact_relationships" />
+                                        </div>
+                                        <div class="col-12 col-lg-4">
+                                            <x-forms.text name="emergency_contact_phone_" :label="__('system.employee_emergency_contact_phone')" value="" />
+                                        </div>
                                     </div>
                                 </div>
-                                <x-forms.text name="emergency_contact_phone" :label="__('system.employee_emergency_contact_phone')" :value="old('emergency_contact_phone')" />
+
+                                @if (old())
+                                    @for ($i = 1; $i <= count(old('emergency_contact_name')); $i++)
+                                        <div class="row" data-emergency-contact="{{ $i }}">
+                                            <div class="col-12 col-lg-4">
+                                                <x-forms.array.text name="emergency_contact_name[{{ $i }}]" :label="__('system.employee_emergency_contact_name')" :value="old('emergency_contact_name.' . $i)" />
+                                            </div>
+                                        </div>
+                                    @endfor
+                                @else
+                                    <div class="row" data-emergency-contact="1">
+                                        <div class="col-12 col-lg-4">
+                                            <x-forms.array.text name="emergency_contact_name[1]" :label="__('system.employee_emergency_contact_name')" value="" />
+                                        </div>
+                                        <div class="col-12 col-lg-4">
+                                            <x-forms.select name="emergency_contact_relationship[1]" :label="__('system.employee_emergency_contact_relationship')" value="" :options="$emergency_contact_relationships" />
+                                        </div>
+                                        <div class="col-12 col-lg-4">
+                                            <x-forms.text name="emergency_contact_phone[1]" :label="__('system.employee_emergency_contact_phone')" value="" />
+                                        </div>
+                                    </div>
+                                @endif
+
+                                <div class="text-right mb-3">
+                                    <button class="btn btn-outline-primary" type="button" id="addEmergencyContact">
+                                        <span class="fas fa-fw fa-add"></span>
+                                    </button>
+                                </div>
                             </x-card>
                             <!-- [END] Personal Data -->
 
@@ -313,6 +352,48 @@
                                     <x-slot name="header">
                                         @lang('system.employees_families') <span class="family-number"></span>
                                     </x-slot>
+
+                                    <div class="row">
+                                        <div class="col-12 col-lg-6">
+                                            <x-forms.text name="family_name_" :label="__('system.employee_family_name')" value="" />
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <x-forms.select name="family_relationship_" :label="__('system.employee_family_relationship')" value="" :options="$family_relationships" />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label>@lang('system.family_sex')</label>
+                                        <div class="row">
+                                            <div class="col-6 col-lg-3">
+                                                <x-forms.radio name="family_sex_" id="family_sex_M" value="M" :label="__('system.family_sex_male')" :is-checked="false" />
+                                            </div>
+                                            <div class="col-6 col-lg-3">
+                                                <x-forms.radio name="family_sex_" id="family_sex_F" value="F" :label="__('system.family_sex_female')" :is-checked="false" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12 col-lg-6">
+                                            <x-forms.date name="family_birth_date_" :label="__('system.employee_family_birth_date')" value="" />
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <x-forms.select name="family_status_" :label="__('system.employee_family_status')" value="" :options="$family_status" />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label>@lang('system.employee_family_same_company')</label>
+                                        <div class="row">
+                                            <div class="col-6 col-lg-3">
+                                                <x-forms.radio name="family_same_company_" id="family_same_company_Y" value="Y" :label="__('system.y')" :is-checked="false" />
+                                            </div>
+                                            <div class="col-6 col-lg-3">
+                                                <x-forms.radio name="family_same_company_" id="family_same_company_N" value="N" :label="__('system.n')" :is-checked="false" />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </x-card>
                             </div>
 
@@ -320,10 +401,167 @@
                                 <x-slot name="header">
                                     @lang('system.employees_families') <span class="family-number">1</span>
                                 </x-slot>
+
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <x-forms.text name="family_name[1]" :label="__('system.employee_family_name')" value="" />
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <x-forms.select name="family_relationship[1]" :label="__('system.employee_family_relationship')" value="" :options="$family_relationships" />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label>@lang('system.family_sex')</label>
+                                    <div class="row">
+                                        <div class="col-6 col-lg-3">
+                                            <x-forms.radio name="family_sex[1]" id="familySexM1" value="M" :label="__('system.family_sex_male')" :is-checked="false" />
+                                        </div>
+                                        <div class="col-6 col-lg-3">
+                                            <x-forms.radio name="family_sex[1]" id="familySexF1" value="F" :label="__('system.family_sex_female')" :is-checked="false" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <x-forms.date name="family_birth_date[1]" :label="__('system.employee_family_birth_date')" value="" />
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <x-forms.select name="family_status[1]" :label="__('system.employee_family_status')" value="" :options="$family_status" />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label>@lang('system.employee_family_same_company')</label>
+                                    <div class="row">
+                                        <div class="col-6 col-lg-3">
+                                            <x-forms.radio name="family_same_company[1]" id="family_same_company_Y1" value="Y" :label="__('system.y')" :is-checked="false" />
+                                        </div>
+                                        <div class="col-6 col-lg-3">
+                                            <x-forms.radio name="family_same_company[1]" id="family_same_company_N1" value="N" :label="__('system.n')" :is-checked="false" />
+                                        </div>
+                                    </div>
+                                </div>
                             </x-card>
 
                             <div class="text-right mb-3">
                                 <button class="btn btn-outline-primary" type="button" id="addFamily">
+                                    <span class="fas fa-fw fa-add"></span>
+                                </button>
+                            </div>
+
+                            <x-card>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button class="btn btn-primary" type="button" data-prev="1">
+                                            <span class="fas fa-fw fa-arrow-left"></span>
+                                            @lang('system.prev')
+                                        </button>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <button class="btn btn-primary" type="button" data-next="1">
+                                            @lang('system.next')
+                                            <span class="fas fa-fw fa-arrow-right"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </x-card>
+                        </div>
+
+                        <div class="content" id="sectionExps" role="tabpanel" aria-labelledby="sectionExpsTrigger">
+                            <div class="d-none" id="exampleExpCard">
+                                <x-card>
+                                    <x-slot name="header">
+                                        @lang('system.employees_work_experiences') <span class="exp-number"></span>
+                                    </x-slot>
+
+                                    <x-forms.text name="exp_company_name_" :label="__('system.employee_exp_company_name')" value="" />
+
+                                    <div class="row">
+                                        <div class="col-12 col-lg-6">
+                                            <x-forms.date name="exp_start_date_" :label="__('system.employee_exp_start_date')" value="" />
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <x-forms.date name="exp_end_date_" :label="__('system.employee_exp_end_date')" value="" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12 col-lg-6">
+                                            <x-forms.text name="exp_end_job_title_" :label="__('system.employee_exp_end_job_title')" value="" />
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <x-forms.text name="exp_end_pay_rate_" :label="__('system.employee_exp_end_pay_rate')" value="" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12 col-lg-6">
+                                            <x-forms.textarea name="exp_job_desc_" :label="__('system.employee_exp_job_desc')" value="" />
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <x-forms.textarea name="exp_job_remarks_" :label="__('system.employee_exp_job_remarks')" value="" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12 col-lg-6">
+                                            <x-forms.text name="exp_company_city_" :label="__('system.employee_exp_company_city')" value="" />
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <x-forms.text name="exp_company_phone_" :label="__('system.employee_exp_company_phone')" value="" />
+                                        </div>
+                                    </div>
+                                </x-card>
+                            </div>
+
+                            <x-card data-exp="1">
+                                <x-slot name="header">
+                                    @lang('system.employees_work_experiences') <span class="exp-number">1</span>
+                                </x-slot>
+
+                                <x-forms.text name="exp_company_name[1]" :label="__('system.employee_exp_company_name')" value="" />
+
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <x-forms.date name="exp_start_date[1]" :label="__('system.employee_exp_start_date')" value="" />
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <x-forms.date name="exp_end_date[1]" :label="__('system.employee_exp_end_date')" value="" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <x-forms.text name="exp_end_job_title[1]" :label="__('system.employee_exp_end_job_title')" value="" />
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <x-forms.text name="exp_end_pay_rate[1]" :label="__('system.employee_exp_end_pay_rate')" value="" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <x-forms.textarea name="exp_job_desc[1]" :label="__('system.employee_exp_job_desc')" value="" />
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <x-forms.textarea name="exp_job_remarks[1]" :label="__('system.employee_exp_job_remarks')" value="" />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <x-forms.text name="exp_company_city[1]" :label="__('system.employee_exp_company_city')" value="" />
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <x-forms.text name="exp_company_phone[1]" :label="__('system.employee_exp_company_phone')" value="" />
+                                    </div>
+                                </div>
+                            </x-card>
+
+                            <div class="text-right mb-3">
+                                <button class="btn btn-outline-primary" type="button" id="addExp">
                                     <span class="fas fa-fw fa-add"></span>
                                 </button>
                             </div>
@@ -459,115 +697,6 @@
         <script src="{{ asset('assets/plugins/datepicker/id.js') }}"></script>
         <script src="{{ asset('assets/plugins/datepicker/custom.js') }}"></script>
         <script src="{{ asset('assets/plugins/bs-stepper/js/index.js') }}"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const stepper = new Stepper(document.querySelector('.bs-stepper'));
-
-                const nextButtons = document.querySelectorAll('button[data-next="1"]');
-                nextButtons.forEach(el => {
-                    el.addEventListener('click', function () {
-                        stepper.next();
-                        window.scrollTo(0, 0);
-                    });
-                });
-
-                const prevButtons = document.querySelectorAll('button[data-prev="1"]');
-                prevButtons.forEach(el => {
-                    el.addEventListener('click', function () {
-                        stepper.previous();
-                        window.scrollTo(0, 0);
-                    });
-                });
-
-                const sectionButtons = document.querySelectorAll('div[data-section]');
-                sectionButtons.forEach(el => {
-                    el.addEventListener('click', function () {
-                        let sectionNumber = el.dataset.section;
-                        stepper.to(sectionNumber);
-                        window.scrollTo(0, 0);
-                    });
-                });
-
-                const addEducation = document.getElementById('addEducation');
-                let currentEducationNumber = 1;
-                addEducation.addEventListener('click', function () {
-                    const elem = document.getElementById('exampleEducationCard').querySelector('div.card');
-                    let clone = elem.cloneNode(true);
-                    const anchorElement = document.querySelector('div.card[data-education="' + currentEducationNumber + '"]');
-
-                    currentEducationNumber++;
-
-                    clone.dataset.education = currentEducationNumber;
-                    let educationNumbers = clone.querySelectorAll('.education-number');
-                    educationNumbers.forEach(el => {
-                        el.innerHTML = currentEducationNumber;
-                    });
-
-                    let fields1 = clone.querySelector('select[name="education_type_"]');
-                    let labelField1 = clone.querySelector('label[for="select_education_type_"]');
-                    fields1.name = "education_type[" + currentEducationNumber + "]";
-                    labelField1.setAttribute('for', "selectEducationType" + currentEducationNumber);
-                    fields1.id = "selectEducationType" + currentEducationNumber;                    
-
-                    let field2 = clone.querySelector('input[name="education_date_aquired_"]');
-                    let labelField2 = clone.querySelector('label[for="field_education_date_aquired_"]');
-                    field2.name = "education_date_aquired[" + currentEducationNumber + "]";
-                    labelField2.setAttribute('for', 'fieldEducationDateAquired' + currentEducationNumber);
-                    field2.id = "fieldEducationDateAquired" + currentEducationNumber;
-
-                    new Datepicker(field2, {
-                        buttonClass: 'btn',
-                        autohide: true,
-                        format: 'dd/mm/yyyy',
-                        startView: 2,
-                        language: 'id',
-                    });
-
-                    let field3 = clone.querySelector('input[name="education_grade_"]');
-                    let labelField3 = clone.querySelector('label[for="field_education_grade_"]');
-                    field3.name = "education_grade[" + currentEducationNumber + "]";
-                    labelField3.setAttribute('for', 'fieldEducationGrade' + currentEducationNumber);
-                    field3.id = "fieldEducationGrade" + currentEducationNumber;
-
-                    let field4 = clone.querySelector('input[name="education_school_name_"]');
-                    let labelField4 = clone.querySelector('label[for="field_education_school_name_"]');
-                    field4.name = "education_school_name[" + currentEducationNumber + "]";
-                    labelField4.setAttribute('for', 'fieldEducationSchoolName' + currentEducationNumber);
-                    field4.id = "fieldEducationSchoolName" + currentEducationNumber;
-
-                    let field5 = clone.querySelector('input[name="education_city_"]');
-                    let labelField5 = clone.querySelector('label[for="field_education_city_"]');
-                    field5.name = "education_city[" + currentEducationNumber + "]";
-                    labelField5.setAttribute('for', 'fieldEducationCity' + currentEducationNumber);
-                    field5.id = "fieldEducationCity" + currentEducationNumber;
-
-                    let field6 = clone.querySelector('input[name="education_certificate_number_"]');
-                    let labelField6 = clone.querySelector('label[for="field_education_certificate_number_"]');
-                    field6.name = "education_certificate_number[" + currentEducationNumber + "]";
-                    labelField6.setAttribute('for', 'fieldEducationCertificateNumber' + currentEducationNumber);
-                    field6.id = "fieldEducationCertificateNumber" + currentEducationNumber;                    
-
-                    anchorElement.after(clone);
-                });
-
-                const addFamily = document.getElementById('addFamily');
-                let currentFamilyNumber = 1;
-                addFamily.addEventListener('click', function () {
-                    const elem = document.getElementById('exampleFamilyCard').querySelector('div.card');
-                    let clone = elem.cloneNode(true);
-                    const anchorElement = document.querySelector('div.card[data-family="' + currentFamilyNumber + '"]');
-
-                    currentFamilyNumber++;
-
-                    clone.dataset.family = currentFamilyNumber;
-                    let familyNumbers = clone.querySelectorAll('.family-number');
-                    familyNumbers.forEach(el => {
-                        el.innerHTML = currentFamilyNumber;
-                    });
-
-                    anchorElement.after(clone);
-                });
-            });
-        </script>
+        <script src="{{ asset('assets/js/admin/create-employee.js') }}"></script>
     @endpush
 </x-admin-layout>

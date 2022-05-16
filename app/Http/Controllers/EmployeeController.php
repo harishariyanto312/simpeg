@@ -94,6 +94,24 @@ class EmployeeController extends Controller
             __('system.relationship_mother') => __('system.relationship_mother'),
             __('system.relationship_father_in_law') => __('system.relationship_father_in_law'),
             __('system.relationship_mother_in_law') => __('system.relationship_mother_in_law'),
+            __('system.relationship_younger_sibling') => __('system.relationship_younger_sibling'),
+            __('system.relationship_older_sibling') => __('system.relationship_older_sibling'),
+            __('system.relationship_cousin') => __('system.relationship_cousin'),
+            __('system.relationship_friend') => __('system.relationship_friend'),
+            __('system.relationship_child') => __('system.relationship_child'),
+            __('system.relationship_other') => __('system.relationship_other'),
+        ];
+
+        $family_relationships = [
+            __('system.relationship_wife') => __('system.relationship_wife'),
+            __('system.relationship_husband') => __('system.relationship_husband'),
+            __('system.relationship_child') => __('system.relationship_child'),
+            __('system.relationship_father') => __('system.relationship_father'),
+            __('system.relationship_mother') => __('system.relationship_mother'),
+            __('system.relationship_father_in_law') => __('system.relationship_father_in_law'),
+            __('system.relationship_mother_in_law') => __('system.relationship_mother_in_law'),
+            __('system.relationship_younger_sibling') => __('system.relationship_younger_sibling'),
+            __('system.relationship_older_sibling') => __('system.relationship_older_sibling'),
         ];
 
         $salary_units = [
@@ -117,7 +135,16 @@ class EmployeeController extends Controller
             'DOCTORAL' => 'S3'
         ];
 
-        return view('pages.employees.create', compact('breadcrumb', 'years', 'months', 'emergency_contact_relationships', 'salary_units', 'education_types'));
+        $family_status = [
+            'ALIVE' => '-',
+            'DIED' => __('system.family_status_died'),
+            'MARRIED' => __('system.family_status_married'),
+            'WORK' => __('system.family_status_work'),
+            'ADULT' => __('system.family_status_adult'),
+            'SUPPORT' => __('system.family_status_support'),
+        ];
+
+        return view('pages.employees.create', compact('breadcrumb', 'years', 'months', 'emergency_contact_relationships', 'salary_units', 'education_types', 'family_relationships', 'family_status'));
     }
 
     private function months()
@@ -146,30 +173,10 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
-        $address = [];
-        $address['detail'] = $request->address_detail;
-        $address['rt'] = $request->address_rt;
-        $address['rw'] = $request->address_rw;
-        $address['desa'] = $request->address_desa;
-        $address['kecamatan'] = $request->address_kecamatan;
-        $address['kota'] = $request->address_kota;
-        $address = json_encode($address);
-
-        $employee = Employee::create([
-            'nip' => $request->nip,
-            'name' => $request->name,
-            'birth_place' => $request->birth_place,
-            'birth_date' => $request->birth_date,
-            'birth_month' => $request->birth_month,
-            'birth_year' => $request->birth_year,
-            'gender' => $request->gender,
-            'address' => $address
+        $validated  = $request->validate([
+            'employee_id' => ['required'],
+            'emergency_contact_name.*' => ['required']
         ]);
-
-        $request->session()->flash('status', __('system.saved'));
-
-        return redirect()->route('employees.create');
     }
 
     /**
