@@ -216,6 +216,9 @@
                                             <div class="col-12 col-lg-4">
                                                 <x-forms.array.text name="emergency_contact_name[{{ $i }}]" :label="__('system.employee_emergency_contact_name')" :value="old('emergency_contact_name.' . $i)" />
                                             </div>
+                                            <div class="col-12 col-lg-4">
+                                                <x-forms.array.select name="emergency_contact_relationship[{{ $i }}]" :label="__('system.employee_emergency_contact_relationship')" :value="old('emergency_contact_relationship.' . $i)" :options="$emergency_contact_relationships" />
+                                            </div>
                                         </div>
                                     @endfor
                                 @else

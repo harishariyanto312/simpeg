@@ -175,7 +175,8 @@ class EmployeeController extends Controller
     {
         $validated  = $request->validate([
             'employee_id' => ['required'],
-            'emergency_contact_name.*' => ['required']
+            'emergency_contact_name.*' => ['required'],
+            'emergency_contact_relationship.*' => ['required'],
         ]);
     }
 

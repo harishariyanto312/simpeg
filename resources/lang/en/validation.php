@@ -184,6 +184,8 @@ return [
         'mobile_phone' => 'Nomor Handphone',
         'email_address' => 'Alamat Email',
         'emergency_contact_name.*' => 'Nama',
+        'emergency_contact_relationship.*' => 'Hubungan',
+        'emergency_contact_phone.*' => 'Nomor Telepon',
     ],
 
 ];
