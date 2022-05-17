@@ -70,10 +70,10 @@
                                     <label>@lang('system.employee_sex')</label>
                                     <div class="row">
                                         <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="sex" id="sexMale" value="M" :label="__('system.employee_sex_male')" :is-checked="false" />
+                                            <x-forms.radio name="sex" id="sexMale" value="M" :label="__('system.employee_sex_male')" :is-checked="old('sex') == 'M' ? true : false" />
                                         </div>
                                         <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="sex" id="sexFemale" value="F" :label="__('system.employee_sex_female')" :is-checked="false" />
+                                            <x-forms.radio name="sex" id="sexFemale" value="F" :label="__('system.employee_sex_female')" :is-checked="old('sex') == 'F' ? true : false" />
                                         </div>
                                     </div>
                                 </div>
@@ -91,16 +91,16 @@
                                     <label>@lang('system.employee_marital_status')</label>
                                     <div class="row">
                                         <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="marital_status" id="maritalStatusSingle" value="SINGLE" :label="__('system.marital_status_single')" :is-checked="false" />
+                                            <x-forms.radio name="marital_status" id="maritalStatusSingle" value="SINGLE" :label="__('system.marital_status_single')" :is-checked="old('marital_status') == 'SINGLE' ? true : false" />
                                         </div>
                                         <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="marital_status" id="maritalStatusMarried" value="MARRIED" :label="__('system.marital_status_married')" :is-checked="false" />
+                                            <x-forms.radio name="marital_status" id="maritalStatusMarried" value="MARRIED" :label="__('system.marital_status_married')" :is-checked="old('marital_status') == 'MARRIED' ? true : false" />
                                         </div>
                                         <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="marital_status" id="maritalStatusWidower" value="WIDOWER" :label="__('system.marital_status_widower')" :is-checked="false" />
+                                            <x-forms.radio name="marital_status" id="maritalStatusWidower" value="WIDOWER" :label="__('system.marital_status_widower')" :is-checked="old('marital_status') == 'WIDOWER' ? true : false" />
                                         </div>
                                         <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="marital_status" id="maritalStatusWidow" value="WIDOW" :label="__('system.marital_status_widow')" :is-checked="false" />
+                                            <x-forms.radio name="marital_status" id="maritalStatusWidow" value="WIDOW" :label="__('system.marital_status_widow')" :is-checked="old('marital_status') == 'WIDOW' ? true : false" />
                                         </div>
                                     </div>
                                 </div>
@@ -109,25 +109,25 @@
                                     <label>@lang('system.employee_religion')</label>
                                     <div class="row">
                                         <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="religion" id="religionBuddhist" value="BUDDHIST" :label="__('system.religion_buddhist')" :is-checked="false" />
+                                            <x-forms.radio name="religion" id="religionBuddhist" value="BUDDHIST" :label="__('system.religion_buddhist')" :is-checked="old('religion') == 'BUDDHIST' ? true : false" />
                                         </div>
                                         <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="religion" id="religionHindu" value="HINDU" :label="__('system.religion_hindu')" :is-checked="false" />
+                                            <x-forms.radio name="religion" id="religionHindu" value="HINDU" :label="__('system.religion_hindu')" :is-checked="old('religion') == 'HINDU' ? true : false" />
                                         </div>
                                         <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="religion" id="religionIslam" value="ISLAM" :label="__('system.religion_islam')" :is-checked="false" />
+                                            <x-forms.radio name="religion" id="religionIslam" value="ISLAM" :label="__('system.religion_islam')" :is-checked="old('religion') == 'ISLAM' ? true : false" />
                                         </div>
                                         <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="religion" id="religionCatholic" value="CATHOLIC" :label="__('system.religion_catholic')" :is-checked="false" />
+                                            <x-forms.radio name="religion" id="religionCatholic" value="CATHOLIC" :label="__('system.religion_catholic')" :is-checked="old('religion') == 'CATHOLIC' ? true : false" />
                                         </div>
                                         <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="religion" id="religionConfucianism" value="CONFUCIANISM" :label="__('system.religion_confucianism')" :is-checked="false" />
+                                            <x-forms.radio name="religion" id="religionConfucianism" value="CONFUCIANISM" :label="__('system.religion_confucianism')" :is-checked="old('religion') == 'CONFUCIANISM' ? true : false" />
                                         </div>
                                         <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="religion" id="religionChristian" value="CHRISTIAN" :label="__('system.religion_christian')" :is-checked="false" />
+                                            <x-forms.radio name="religion" id="religionChristian" value="CHRISTIAN" :label="__('system.religion_christian')" :is-checked="old('religion') == 'CHRISTIAN' ? true : false" />
                                         </div>
                                         <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="religion" id="religionNone" value="NONE" :label="__('system.religion_none')" :is-checked="false" />
+                                            <x-forms.radio name="religion" id="religionNone" value="NONE" :label="__('system.religion_none')" :is-checked="old('religion') == 'NONE' ? true : false" />
                                         </div>
                                     </div>
                                 </div>
@@ -136,43 +136,15 @@
                                     <label>@lang('system.employee_type')</label>
                                     <div class="row">
                                         <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="employee_type" id="employeeTypeLocal" value="LOCAL" :label="__('system.employee_type_local')" :is-checked="false" />
+                                            <x-forms.radio name="employee_type" id="employeeTypeLocal" value="LOCAL" :label="__('system.employee_type_local')" :is-checked="old('employee_type') == 'LOCAL' ? true : false" />
                                         </div>
                                         <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="employee_type" id="employeeTypeExpatriate" value="EXPATRIATE" :label="__('system.employee_type_expatriate')" :is-checked="false" />
+                                            <x-forms.radio name="employee_type" id="employeeTypeExpatriate" value="EXPATRIATE" :label="__('system.employee_type_expatriate')" :is-checked="old('employee_type') == 'EXPATRIATE' ? true : false" />
                                         </div>
                                     </div>
                                 </div>
-            
-                                <div>
-                                    <label>@lang('system.employee_blood_type')</label>
-                                    <div class="row">
-                                        <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="blood_type" id="bloodTypeOPlus" value="O+" label="O+" :is-checked="false" />
-                                        </div>
-                                        <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="blood_type" id="bloodTypeOMinus" value="O-" label="O-" :is-checked="false" />
-                                        </div>
-                                        <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="blood_type" id="bloodTypeAPlus" value="A+" label="A+" :is-checked="false" />
-                                        </div>
-                                        <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="blood_type" id="bloodTypeAMinus" value="A-" label="A-" :is-checked="false" />
-                                        </div>
-                                        <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="blood_type" id="bloodTypeABPlus" value="AB+" label="AB+" :is-checked="false" />
-                                        </div>
-                                        <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="blood_type" id="bloodTypeABMinus" value="AB-" label="AB-" :is-checked="false" />
-                                        </div>
-                                        <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="blood_type" id="bloodTypeBPlus" value="B+" label="B+" :is-checked="false" />
-                                        </div>
-                                        <div class="col-6 col-lg-3">
-                                            <x-forms.radio name="blood_type" id="bloodTypeBMinus" value="B-" label="B-" :is-checked="false" />
-                                        </div>
-                                    </div>
-                                </div>
+
+                                <x-forms.select name="blood_type" :label="__('system.employee_blood_type')" :value="old('blood_type')" :options="$blood_types" />
             
                                 <x-forms.text name="id_number" :label="__('system.employee_id_number')" :value="old('id_number')" />
                             </x-card>
@@ -218,6 +190,9 @@
                                             </div>
                                             <div class="col-12 col-lg-4">
                                                 <x-forms.array.select name="emergency_contact_relationship[{{ $i }}]" :label="__('system.employee_emergency_contact_relationship')" :value="old('emergency_contact_relationship.' . $i)" :options="$emergency_contact_relationships" />
+                                            </div>
+                                            <div class="col-12 col-lg-4">
+                                                <x-forms.array.text name="emergency_contact_phone[{{ $i }}]" :label="__('system.employee_emergency_contact_phone')" :value="old('emergency_contact_phone.' . $i)" />
                                             </div>
                                         </div>
                                     @endfor

@@ -144,7 +144,18 @@ class EmployeeController extends Controller
             'SUPPORT' => __('system.family_status_support'),
         ];
 
-        return view('pages.employees.create', compact('breadcrumb', 'years', 'months', 'emergency_contact_relationships', 'salary_units', 'education_types', 'family_relationships', 'family_status'));
+        $blood_types = [
+            'O+' => 'O+',
+            'O-' => 'O-',
+            'A+' => 'A+',
+            'A-' => 'A-',
+            'AB+' => 'AB+',
+            'AB-' => 'AB-',
+            'B+' => 'B+',
+            'B-' => 'B-'
+        ];
+
+        return view('pages.employees.create', compact('breadcrumb', 'years', 'months', 'emergency_contact_relationships', 'salary_units', 'education_types', 'family_relationships', 'family_status', 'blood_types'));
     }
 
     private function months()
@@ -175,8 +186,8 @@ class EmployeeController extends Controller
     {
         $validated  = $request->validate([
             'employee_id' => ['required'],
-            'emergency_contact_name.*' => ['required'],
-            'emergency_contact_relationship.*' => ['required'],
+            'first_name' => ['required'],
+            'xxx' => ['required']
         ]);
     }
 
