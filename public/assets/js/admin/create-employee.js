@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     const addEducation = document.getElementById('addEducation');
-    let currentEducationNumber = 1;
+    let currentEducationNumber = document.querySelectorAll('div.card[data-education]').length;
     addEducation.addEventListener('click', function () {
         const elem = document.getElementById('exampleEducationCard').querySelector('div.card');
         let clone = elem.cloneNode(true);

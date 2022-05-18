@@ -267,38 +267,75 @@
                                 </x-card>
                             </div>
 
-                            <x-card data-education="1">
-                                <x-slot name="header">
-                                    @lang('system.employees_educations') <span class="education-number">1</span>
-                                </x-slot>
+                            @if (old())
+                                @for ($i = 1; $i <= count(old('education_type')); $i++)
+                                    <x-card data-education="{{ $i }}">
+                                        <x-slot name="header">
+                                            @lang('system.employees_educations') <span class="education-number">{{ $i }}</span>
+                                        </x-slot>
 
-                                <div class="row">
-                                    <div class="col-12 col-lg-6">
-                                        <x-forms.select name="education_type[1]" :label="__('system.employee_education_type')" value="" :options="$education_types" />
-                                    </div>
-                                    <div class="col-12 col-lg-6"></div>
-                                </div>
+                                        <div class="row">
+                                            <div class="col-12 col-lg-6">
+                                                <x-forms.select name="education_type[{{ $i }}]" :label="__('system.employee_education_type')" :value="old('education_type.' . $i)" :options="$education_types" />
+                                            </div>
+                                            <div class="col-12 col-lg-6"></div>
+                                        </div>
 
-                                <div class="row">
-                                    <div class="col-12 col-lg-6">
-                                        <x-forms.date name="education_date_aquired[1]" :label="__('system.employee_education_date_aquired')" value="" />
-                                    </div>
-                                    <div class="col-12 col-lg-6">
-                                        <x-forms.text name="education_grade[1]" :label="__('system.employee_education_grade')" value="" />
-                                    </div>
-                                </div>
+                                        <div class="row">
+                                            <div class="col-12 col-lg-6">
+                                                <x-forms.date name="education_date_aquired[1]" :label="__('system.employee_education_date_aquired')" value="" />
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                                <x-forms.text name="education_grade[1]" :label="__('system.employee_education_grade')" value="" />
+                                            </div>
+                                        </div>
 
-                                <div class="row">
-                                    <div class="col-12 col-lg-6">
-                                        <x-forms.text name="education_school_name[1]" :label="__('system.employee_education_school_name')" value="" />
-                                    </div>
-                                    <div class="col-12 col-lg-6">
-                                        <x-forms.text name="education_city[1]" :label="__('system.employee_education_city')" value="" />
-                                    </div>
-                                </div>
+                                        <div class="row">
+                                            <div class="col-12 col-lg-6">
+                                                <x-forms.text name="education_school_name[1]" :label="__('system.employee_education_school_name')" value="" />
+                                            </div>
+                                            <div class="col-12 col-lg-6">
+                                                <x-forms.text name="education_city[1]" :label="__('system.employee_education_city')" value="" />
+                                            </div>
+                                        </div>
 
-                                <x-forms.text name="education_certificate_number[1]" :label="__('system.employee_certificate_number')" value="" />
-                            </x-card>
+                                        <x-forms.text name="education_certificate_number[1]" :label="__('system.employee_certificate_number')" value="" />
+                                    </x-card>                                    
+                                @endfor
+                            @else
+                                <x-card data-education="1">
+                                    <x-slot name="header">
+                                        @lang('system.employees_educations') <span class="education-number">1</span>
+                                    </x-slot>
+
+                                    <div class="row">
+                                        <div class="col-12 col-lg-6">
+                                            <x-forms.select name="education_type[1]" :label="__('system.employee_education_type')" value="" :options="$education_types" />
+                                        </div>
+                                        <div class="col-12 col-lg-6"></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12 col-lg-6">
+                                            <x-forms.date name="education_date_aquired[1]" :label="__('system.employee_education_date_aquired')" value="" />
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <x-forms.text name="education_grade[1]" :label="__('system.employee_education_grade')" value="" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12 col-lg-6">
+                                            <x-forms.text name="education_school_name[1]" :label="__('system.employee_education_school_name')" value="" />
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <x-forms.text name="education_city[1]" :label="__('system.employee_education_city')" value="" />
+                                        </div>
+                                    </div>
+
+                                    <x-forms.text name="education_certificate_number[1]" :label="__('system.employee_certificate_number')" value="" />
+                                </x-card>
+                            @endif
 
                             <div class="text-right mb-3">
                                 <button class="btn btn-outline-primary" type="button" id="addEducation">
