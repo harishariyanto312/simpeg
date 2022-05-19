@@ -145,6 +145,7 @@ class EmployeeController extends Controller
         ];
 
         $blood_types = [
+            '' => __('system.select_blood_type'),
             'O+' => 'O+',
             'O-' => 'O-',
             'A+' => 'A+',
@@ -187,7 +188,20 @@ class EmployeeController extends Controller
         $validated  = $request->validate([
             'employee_id' => ['required'],
             'first_name' => ['required'],
-            'xxx' => ['required']
+            'middle_name' => ['nullable'],
+            'last_name' => ['nullable'],
+            'sex' => ['required'],
+            'birth_place' => ['required'],
+            'birth_date' => ['required'],
+            'marital_status' => ['required'],
+            'religion' => ['required'],
+            'employee_type' => ['required'],
+            'blood_type' => ['nullable'],
+            'id_number' => ['required'],
+            'current_address' => ['required'],
+            'current_village' => ['required'],
+            'current_subdistrict' => ['required'],
+            'current_city' => ['required']
         ]);
     }
 

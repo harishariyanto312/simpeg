@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const addFamily = document.getElementById('addFamily');
-    let currentFamilyNumber = 1;
+    let currentFamilyNumber = document.querySelectorAll('div.card[data-family]').length;
     addFamily.addEventListener('click', function () {
         const elem = document.getElementById('exampleFamilyCard').querySelector('div.card');
         let clone = elem.cloneNode(true);

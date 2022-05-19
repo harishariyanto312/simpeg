@@ -202,6 +202,8 @@ return [
     'employee_nssf_health' => 'Ikut BPJS Kesehatan',
     'nssf_occupation_join_year' => 'Tahun Kepesertaan',
     'employee_nssf_occupation_join_month' => 'Bulan Kepesertaan',
+    'nssf_health_join_year' => 'Tahun Kepesertaan',
+    'employee_nssf_health_join_month' => 'Bulan Kepesertaan',
     'y' => 'Ya',
     'n' => 'Tidak',
     'employees_educations' => 'Pendidikan',
@@ -235,4 +237,5 @@ return [
     'employee_exp_job_remarks' => 'Keterangan Tambahan',
     'employee_exp_company_phone' => 'Nomor Telepon',
     'employee_exp_company_city' => 'Kota Lokasi Perusahaan',
+    'select_blood_type' => 'Pilih golongan darah',
 ];
