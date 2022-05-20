@@ -238,4 +238,7 @@ return [
     'employee_exp_company_phone' => 'Nomor Telepon',
     'employee_exp_company_city' => 'Kota Lokasi Perusahaan',
     'select_blood_type' => 'Pilih golongan darah',
+    'select_emergency_contact_relationship' => 'Pilih hubungan',
+    'select_education_types' => 'Pilih tingkat pendidikan',
+    'select_family_relationship' => 'Pilih hubungan',
 ];

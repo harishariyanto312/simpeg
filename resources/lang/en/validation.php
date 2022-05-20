@@ -197,7 +197,7 @@ return [
         'family_sex.*' => 'Jenis Kelamin',
         'family_birth_date.*' => 'Tanggal Lahir',
         'family_status.*' => 'Status',
-        'employee_family_same_company.*' => 'Keterangan Bekerja Dalam Satu Perusahaan',
+        'family_same_company.*' => 'Keterangan Bekerja Dalam Satu Perusahaan',
         'exp_company_name.*' => 'Nama Perusahaan',
         'exp_start_date.*' => 'Tanggal Mulai Bekerja',
         'exp_end_date.*' => 'Tanggal Akhir Bekerja',

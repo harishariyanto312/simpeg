@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function changeIdAndLabelRadio(parentEl, originalLabel, newLabel, number) {
-        const radios = parentEl.querySelectorAll('input[type="radio"][name="' + originalLabel + '"]');
+        const radios = parentEl.querySelectorAll('input[type="radio"][name="' + originalLabel + '"]:not(.d-none)');
         radios.forEach(radio => {
             let radioValue = radio.value;
             let newID = newLabel + radioValue + number;
@@ -81,6 +81,11 @@ document.addEventListener('DOMContentLoaded', function () {
             let radioLabel = parentEl.querySelector('label[for="' + originalLabel + radioValue + '"]');
             radioLabel.setAttribute('for', newID);
         });
+
+        const radioHidden = parentEl.querySelector('input[type="hidden"][name="' + originalLabel + '"]');
+        if (radioHidden) {
+            radioHidden.name = newLabel + '[' + number + ']';
+        }
     }
 
     const addFamily = document.getElementById('addFamily');
@@ -119,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     const addExp = document.getElementById('addExp');
-    let currentExpNumber = 1;
+    let currentExpNumber = document.querySelectorAll('div.card[data-card]').length;
     addExp.addEventListener('click', function () {
         const elem = document.getElementById('exampleExpCard').querySelector('div.card');
         let clone = elem.cloneNode(true);

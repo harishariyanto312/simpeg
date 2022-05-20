@@ -87,6 +87,7 @@ class EmployeeController extends Controller
         $months = $this->months();
 
         $emergency_contact_relationships = [
+            '' => __('system.select_emergency_contact_relationship'),
             __('system.relationship_wife') => __('system.relationship_wife'),
             __('system.relationship_husband') => __('system.relationship_husband'),
             __('system.relationship_girlfriend') => __('system.relationship_girlfriend'),
@@ -103,6 +104,7 @@ class EmployeeController extends Controller
         ];
 
         $family_relationships = [
+            '' => __('system.select_family_relationship'),
             __('system.relationship_wife') => __('system.relationship_wife'),
             __('system.relationship_husband') => __('system.relationship_husband'),
             __('system.relationship_child') => __('system.relationship_child'),
@@ -123,6 +125,7 @@ class EmployeeController extends Controller
         ];
 
         $education_types = [
+            '' => __('system.select_education_types'),
             'ELEMENTARY' => 'SD',
             'MIDDLE' => 'SMP',
             'HIGH' => 'SMA/SMK',
@@ -185,6 +188,7 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+
         $validated  = $request->validate([
             'employee_id' => ['required'],
             'first_name' => ['required'],
@@ -201,7 +205,36 @@ class EmployeeController extends Controller
             'current_address' => ['required'],
             'current_village' => ['required'],
             'current_subdistrict' => ['required'],
-            'current_city' => ['required']
+            'current_city' => ['required'],
+            'id_address' => ['required'],
+            'id_village' => ['required'],
+            'id_subdistrict' => ['required'],
+            'id_city' => ['required'],
+            'home_phone' => ['required'],
+            'mobile_phone' => ['required'],
+            'email_address' => ['required'],
+            'emergency_contact_name.*' => ['required'],
+            'emergency_contact_relationship.*' => ['required'],
+            'emergency_contact_phone.*' => ['required'],
+            'education_type.*' => ['required'],
+            'education_date_aquired.*' => ['required'],
+            'education_grade.*' => ['required'],
+            'education_school_name.*' => ['required'],
+            'education_city.*' => ['required'],
+            'education_certificate_number.*' => ['required'],
+            'family_name.*' => ['required'],
+            'family_relationship.*' => ['required'],
+            'family_sex.*' => ['required'],
+            'family_birth_date.*' => ['required'],
+            'family_status.*' => ['required'],
+            'family_same_company.*' => ['required'],
+            'exp_company_name.*' => ['required'],
+            'exp_start_date.*' => ['required'],
+            'exp_end_date.*' => ['required'],
+            'exp_end_job_title.*' => ['required'],
+            'exp_end_pay_rate.*' => ['required'],
+            'exp_job_desc.*' => ['required'],
+            'exp_job_remarks.*' => ['required'],
         ]);
     }
 

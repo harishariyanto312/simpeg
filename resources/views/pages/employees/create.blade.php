@@ -211,7 +211,7 @@
                                 @else
                                     <div class="row" data-emergency-contact="1">
                                         <div class="col-12 col-lg-4">
-                                            <x-forms.array.text name="emergency_contact_name[1]" :label="__('system.employee_emergency_contact_name')" value="" />
+                                            <x-forms.text name="emergency_contact_name[1]" :label="__('system.employee_emergency_contact_name')" value="" />
                                         </div>
                                         <div class="col-12 col-lg-4">
                                             <x-forms.select name="emergency_contact_relationship[1]" :label="__('system.employee_emergency_contact_relationship')" value="" :options="$emergency_contact_relationships" />
@@ -288,30 +288,30 @@
 
                                         <div class="row">
                                             <div class="col-12 col-lg-6">
-                                                <x-forms.select name="education_type[{{ $i }}]" :label="__('system.employee_education_type')" :value="old('education_type.' . $i)" :options="$education_types" />
+                                                <x-forms.array.select name="education_type[{{ $i }}]" :label="__('system.employee_education_type')" :value="old('education_type.' . $i)" :options="$education_types" />
                                             </div>
                                             <div class="col-12 col-lg-6"></div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-12 col-lg-6">
-                                                <x-forms.date name="education_date_aquired[{{ $i }}]" :label="__('system.employee_education_date_aquired')" :value="old('education_date_aquired.' . $i)" />
+                                                <x-forms.array.date name="education_date_aquired[{{ $i }}]" :label="__('system.employee_education_date_aquired')" :value="old('education_date_aquired.' . $i)" />
                                             </div>
                                             <div class="col-12 col-lg-6">
-                                                <x-forms.text name="education_grade[{{ $i }}]" :label="__('system.employee_education_grade')" :value="old('education_grade.' . $i)" />
+                                                <x-forms.array.text name="education_grade[{{ $i }}]" :label="__('system.employee_education_grade')" :value="old('education_grade.' . $i)" />
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-12 col-lg-6">
-                                                <x-forms.text name="education_school_name[{{ $i }}]" :label="__('system.employee_education_school_name')" :value="old('education_school_name.' . $i)" />
+                                                <x-forms.array.text name="education_school_name[{{ $i }}]" :label="__('system.employee_education_school_name')" :value="old('education_school_name.' . $i)" />
                                             </div>
                                             <div class="col-12 col-lg-6">
-                                                <x-forms.text name="education_city[{{ $i }}]" :label="__('system.employee_education_city')" :value="old('education_city.' . $i)" />
+                                                <x-forms.array.text name="education_city[{{ $i }}]" :label="__('system.employee_education_city')" :value="old('education_city.' . $i)" />
                                             </div>
                                         </div>
 
-                                        <x-forms.text name="education_certificate_number[{{ $i }}]" :label="__('system.employee_certificate_number')" :value="old('education_certificate_number.' . $i)" />
+                                        <x-forms.array.text name="education_certificate_number[{{ $i }}]" :label="__('system.employee_certificate_number')" :value="old('education_certificate_number.' . $i)" />
                                     </x-card>                                    
                                 @endfor
                             @else
@@ -391,6 +391,7 @@
 
                                     <div>
                                         <label>@lang('system.family_sex')</label>
+                                        <input type="hidden" name="family_sex_" value="">
                                         <div class="row">
                                             <div class="col-6 col-lg-3">
                                                 <x-forms.radio name="family_sex_" id="family_sex_M" value="M" :label="__('system.family_sex_male')" :is-checked="false" />
@@ -412,6 +413,7 @@
 
                                     <div>
                                         <label>@lang('system.employee_family_same_company')</label>
+                                        <input type="hidden" name="family_same_company_" value="">
                                         <div class="row">
                                             <div class="col-6 col-lg-3">
                                                 <x-forms.radio name="family_same_company_" id="family_same_company_Y" value="Y" :label="__('system.y')" :is-checked="false" />
@@ -433,15 +435,16 @@
 
                                         <div class="row">
                                             <div class="col-12 col-lg-6">
-                                                <x-forms.text name="family_name[{{ $i }}]" :label="__('system.employee_family_name')" :value="old('family_name.' . $i)" />
+                                                <x-forms.array.text name="family_name[{{ $i }}]" :label="__('system.employee_family_name')" :value="old('family_name.' . $i)" />
                                             </div>
                                             <div class="col-12 col-lg-6">
-                                                <x-forms.select name="family_relationship[{{ $i }}]" :label="__('system.employee_family_relationship')" :value="old('family_relationship.' . $i)" :options="$family_relationships" />
+                                                <x-forms.array.select name="family_relationship[{{ $i }}]" :label="__('system.employee_family_relationship')" :value="old('family_relationship.' . $i)" :options="$family_relationships" />
                                             </div>
                                         </div>
 
                                         <div>
                                             <label>@lang('system.family_sex')</label>
+                                            <input type="hidden" name="family_sex[{{ $i }}]" value="">
                                             <div class="row">
                                                 <div class="col-6 col-lg-3">
                                                     <x-forms.radio name="family_sex[{{ $i }}]" id="familySexM{{ $i }}" value="M" :label="__('system.family_sex_male')" :is-checked="old('family_sex.' . $i) == 'M' ? true : false" />
@@ -450,19 +453,23 @@
                                                     <x-forms.radio name="family_sex[{{ $i }}]" id="familySexF{{ $i }}" value="F" :label="__('system.family_sex_female')" :is-checked="old('family_sex.' . $i) == 'F' ? true : false" />
                                                 </div>
                                             </div>
+                                            @error('family_sex.' . $i)
+                                                <div class="small text-danger mb-3">{{ $message }}</div>
+                                            @enderror
                                         </div>
 
                                         <div class="row">
                                             <div class="col-12 col-lg-6">
-                                                <x-forms.date name="family_birth_date[{{ $i }}]" :label="__('system.employee_family_birth_date')" :value="old('family_birth_date.' . $i)" />
+                                                <x-forms.array.date name="family_birth_date[{{ $i }}]" :label="__('system.employee_family_birth_date')" :value="old('family_birth_date.' . $i)" />
                                             </div>
                                             <div class="col-12 col-lg-6">
-                                                <x-forms.select name="family_status[{{ $i }}]" :label="__('system.employee_family_status')" :value="old('family_status.' . $i)" :options="$family_status" />
+                                                <x-forms.array.select name="family_status[{{ $i }}]" :label="__('system.employee_family_status')" :value="old('family_status.' . $i)" :options="$family_status" />
                                             </div>
                                         </div>
 
                                         <div>
                                             <label>@lang('system.employee_family_same_company')</label>
+                                            <input type="hidden" name="family_same_company[{{ $i }}]" value="">
                                             <div class="row">
                                                 <div class="col-6 col-lg-3">
                                                     <x-forms.radio name="family_same_company[{{ $i }}]" id="family_same_company_Y{{ $i }}" value="Y" :label="__('system.y')" :is-checked="old('family_same_company.' . $i) == 'Y' ? true : false" />
@@ -471,6 +478,9 @@
                                                     <x-forms.radio name="family_same_company[{{ $i }}]" id="family_same_company_N{{ $i }}" value="N" :label="__('system.n')" :is-checked="old('family_same_company.' . $i) == 'N' ? true : false" />
                                                 </div>
                                             </div>
+                                            @error('family_same_company.' . $i)
+                                                <div class="small text-danger mb-3">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </x-card>
                                 @endfor
@@ -491,6 +501,7 @@
 
                                     <div>
                                         <label>@lang('system.family_sex')</label>
+                                        <input type="hidden" name="family_sex[1]" value="">
                                         <div class="row">
                                             <div class="col-6 col-lg-3">
                                                 <x-forms.radio name="family_sex[1]" id="familySexM1" value="M" :label="__('system.family_sex_male')" :is-checked="false" />
@@ -512,6 +523,7 @@
 
                                     <div>
                                         <label>@lang('system.employee_family_same_company')</label>
+                                        <input type="hidden" name="family_same_company[1]" value="">
                                         <div class="row">
                                             <div class="col-6 col-lg-3">
                                                 <x-forms.radio name="family_same_company[1]" id="family_same_company_Y1" value="Y" :label="__('system.y')" :is-checked="false" />
@@ -602,32 +614,32 @@
                                             @lang('system.employees_work_experiences') <span class="exp-number">{{ $i }}</span>
                                         </x-slot>
 
-                                        <x-forms.text name="exp_company_name[{{ $i }}]" :label="__('system.employee_exp_company_name')" :value="old('exp_company_name.' . $i)" />
+                                        <x-forms.array.text name="exp_company_name[{{ $i }}]" :label="__('system.employee_exp_company_name')" :value="old('exp_company_name.' . $i)" />
 
                                         <div class="row">
                                             <div class="col-12 col-lg-6">
-                                                <x-forms.date name="exp_start_date[{{ $i }}]" :label="__('system.employee_exp_start_date')" :value="old('exp_start_date.' . $i)" />
+                                                <x-forms.array.date name="exp_start_date[{{ $i }}]" :label="__('system.employee_exp_start_date')" :value="old('exp_start_date.' . $i)" />
                                             </div>
                                             <div class="col-12 col-lg-6">
-                                                <x-forms.date name="exp_end_date[{{ $i }}]" :label="__('system.employee_exp_end_date')" :value="old('exp_end_date.' . $i)" />
+                                                <x-forms.array.date name="exp_end_date[{{ $i }}]" :label="__('system.employee_exp_end_date')" :value="old('exp_end_date.' . $i)" />
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-12 col-lg-6">
-                                                <x-forms.text name="exp_end_job_title[{{ $i }}]" :label="__('system.employee_exp_end_job_title')" :value="old('exp_end_job_title.' . $i)" />
+                                                <x-forms.array.text name="exp_end_job_title[{{ $i }}]" :label="__('system.employee_exp_end_job_title')" :value="old('exp_end_job_title.' . $i)" />
                                             </div>
                                             <div class="col-12 col-lg-6">
-                                                <x-forms.text name="exp_end_pay_rate[{{ $i }}]" :label="__('system.employee_exp_end_pay_rate')" :value="old('exp_end_pay_rate.' . $i)" />
+                                                <x-forms.array.text name="exp_end_pay_rate[{{ $i }}]" :label="__('system.employee_exp_end_pay_rate')" :value="old('exp_end_pay_rate.' . $i)" />
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-12 col-lg-6">
-                                                <x-forms.textarea name="exp_job_desc[{{ $i }}]" :label="__('system.employee_exp_job_desc')" :value="old('exp_job_desc.' . $i)" />
+                                                <x-forms.array.textarea name="exp_job_desc[{{ $i }}]" :label="__('system.employee_exp_job_desc')" :value="old('exp_job_desc.' . $i)" />
                                             </div>
                                             <div class="col-12 col-lg-6">
-                                                <x-forms.textarea name="exp_job_remarks[{{ $i }}]" :label="__('system.employee_exp_job_remarks')" :value="old('exp_job_remarks.' . $i)" />
+                                                <x-forms.array.textarea name="exp_job_remarks[{{ $i }}]" :label="__('system.employee_exp_job_remarks')" :value="old('exp_job_remarks.' . $i)" />
                                             </div>
                                         </div>
 
