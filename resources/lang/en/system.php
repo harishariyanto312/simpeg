@@ -241,4 +241,5 @@ return [
     'select_emergency_contact_relationship' => 'Pilih hubungan',
     'select_education_types' => 'Pilih tingkat pendidikan',
     'select_family_relationship' => 'Pilih hubungan',
+    'address_is_same' => 'Alamat domisili di KTP sama dengan alamat tinggal saat ini',
 ];

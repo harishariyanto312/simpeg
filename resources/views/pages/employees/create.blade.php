@@ -67,7 +67,7 @@
                                 </div>
             
                                 <div>
-                                    <label>@lang('system.employee_sex')</label>
+                                    <label>@lang('system.employee_sex') <span class="text-danger">*</span></label>
                                     <div class="row">
                                         <div class="col-6 col-lg-3">
                                             <x-forms.radio name="sex" id="sexMale" value="M" :label="__('system.employee_sex_male')" :is-checked="old('sex') == 'M' ? true : false" />
@@ -83,15 +83,15 @@
             
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
-                                        <x-forms.text name="birth_place" :label="__('system.employee_birth_place')" :value="old('birth_place')" />
+                                        <x-forms.text name="birth_place" :label="__('system.employee_birth_place')" :value="old('birth_place')" :is-required="true" />
                                     </div>
                                     <div class="col-12 col-lg-6">
-                                        <x-forms.date name="birth_date" :label="__('system.employee_birth_date')" :value="old('birth_date')" default-date="01/01/1995" />
+                                        <x-forms.date name="birth_date" :label="__('system.employee_birth_date')" :value="old('birth_date')" default-date="01/01/1995" :is-required="true" />
                                     </div>
                                 </div>
             
                                 <div>
-                                    <label>@lang('system.employee_marital_status')</label>
+                                    <label>@lang('system.employee_marital_status') <span class="text-danger">*</span></label>
                                     <div class="row">
                                         <div class="col-6 col-lg-3">
                                             <x-forms.radio name="marital_status" id="maritalStatusSingle" value="SINGLE" :label="__('system.marital_status_single')" :is-checked="old('marital_status') == 'SINGLE' ? true : false" />
@@ -112,7 +112,7 @@
                                 </div>
             
                                 <div>
-                                    <label>@lang('system.employee_religion')</label>
+                                    <label>@lang('system.employee_religion') <span class="text-danger">*</span></label>
                                     <div class="row">
                                         <div class="col-6 col-lg-3">
                                             <x-forms.radio name="religion" id="religionBuddhist" value="BUDDHIST" :label="__('system.religion_buddhist')" :is-checked="old('religion') == 'BUDDHIST' ? true : false" />
@@ -142,7 +142,7 @@
                                 </div>
             
                                 <div>
-                                    <label>@lang('system.employee_type')</label>
+                                    <label>@lang('system.employee_type') <span class="text-danger">*</span></label>
                                     <div class="row">
                                         <div class="col-6 col-lg-3">
                                             <x-forms.radio name="employee_type" id="employeeTypeLocal" value="LOCAL" :label="__('system.employee_type_local')" :is-checked="old('employee_type') == 'LOCAL' ? true : false" />
@@ -158,38 +158,52 @@
 
                                 <x-forms.select name="blood_type" :label="__('system.employee_blood_type')" :value="old('blood_type')" :options="$blood_types" />
             
-                                <x-forms.text name="id_number" :label="__('system.employee_id_number')" :value="old('id_number')" />
+                                <x-forms.text name="id_number" :label="__('system.employee_id_number')" :value="old('id_number')" :is-required="true" />
                             </x-card>
 
                             <x-card :header="__('system.employees_address')">
-                                <x-forms.textarea name="current_address" :label="__('system.employee_current_address')" :value="old('current_address')" />
-                                <x-forms.text name="current_village" :label="__('system.employee_current_village')" :value="old('current_village')" />
-                                <x-forms.text name="current_subdistrict" :label="__('system.employee_current_subdistrict')" :value="old('current_subdistrict')" />
-                                <x-forms.text name="current_city" :label="__('system.employee_current_city')" :value="old('current_city')" />
-            
-                                <x-forms.textarea name="id_address" :label="__('system.employee_id_address')" :value="old('id_address')" />
-                                <x-forms.text name="id_village" :label="__('system.employee_id_village')" :value="old('id_village')" />
-                                <x-forms.text name="id_subdistrict" :label="__('system.employee_id_subdistrict')" :value="old('id_subdistrict')" />
-                                <x-forms.text name="id_city" :label="__('system.employee_id_city')" :value="old('id_city')" />
+                                <x-forms.textarea name="id_address" :label="__('system.employee_id_address')" :value="old('id_address')" :is-required="true" />
+                                <x-forms.text name="id_village" :label="__('system.employee_id_village')" :value="old('id_village')" :is-required="true" />
+                                <x-forms.text name="id_subdistrict" :label="__('system.employee_id_subdistrict')" :value="old('id_subdistrict')" :is-required="true" />
+                                <x-forms.text name="id_city" :label="__('system.employee_id_city')" :value="old('id_city')" :is-required="true" />
+
+                                <div class="form-group">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="addressIsSame" value="1" name="address_is_same" {{ old('address_is_same') == '1' ? 'checked' : '' }}>
+                                        <label for="addressIsSame" class="custom-control-label">@lang('system.address_is_same')</label>
+                                    </div>
+                                </div>
+
+                                @if (old('address_is_same') == '1')
+                                    <x-forms.textarea data-address="current" name="current_address" :label="__('system.employee_current_address')" :value="old('current_address')" :is-required="true" disabled />
+                                    <x-forms.text data-address="current" name="current_village" :label="__('system.employee_current_village')" :value="old('current_village')" :is-required="true" disabled />
+                                    <x-forms.text data-address="current" name="current_subdistrict" :label="__('system.employee_current_subdistrict')" :value="old('current_subdistrict')" :is-required="true" disabled />
+                                    <x-forms.text data-address="current" name="current_city" :label="__('system.employee_current_city')" :value="old('current_city')" :is-required="true" disabled />
+                                @else
+                                    <x-forms.textarea data-address="current" name="current_address" :label="__('system.employee_current_address')" :value="old('current_address')" :is-required="true" />
+                                    <x-forms.text data-address="current" name="current_village" :label="__('system.employee_current_village')" :value="old('current_village')" :is-required="true" />
+                                    <x-forms.text data-address="current" name="current_subdistrict" :label="__('system.employee_current_subdistrict')" :value="old('current_subdistrict')" :is-required="true" />
+                                    <x-forms.text data-address="current" name="current_city" :label="__('system.employee_current_city')" :value="old('current_city')" :is-required="true" />
+                                @endif
                             </x-card>
             
                             <x-card :header="__('system.employees_contact')">
                                 <x-forms.text name="home_phone" :label="__('system.employee_home_phone')" :value="old('home_phone')" />
-                                <x-forms.text name="mobile_phone" :label="__('system.employee_mobile_phone')" :value="old('mobile_phone')" />
-                                <x-forms.text name="email_address" :label="__('system.employee_email_address')" :value="old('email_address')" />
+                                <x-forms.text name="mobile_phone" :label="__('system.employee_mobile_phone')" :value="old('mobile_phone')" :is-required="true" />
+                                <x-forms.text name="email_address" :label="__('system.employee_email_address')" :value="old('email_address')" :is-required="true" />
                             </x-card>
 
                             <x-card :header="__('system.employees_emergency_contact')">
                                 <div class="d-none" id="exampleEmergencyContact">
                                     <div class="row">
                                         <div class="col-12 col-lg-4">
-                                            <x-forms.array.text name="emergency_contact_name_" :label="__('system.employee_emergency_contact_name')" value="" />
+                                            <x-forms.array.text name="emergency_contact_name_" :label="__('system.employee_emergency_contact_name')" value="" :is-required="true" />
                                         </div>
                                         <div class="col-12 col-lg-4">
-                                            <x-forms.select name="emergency_contact_relationship_" :label="__('system.employee_emergency_contact_relationship')" value="" :options="$emergency_contact_relationships" />
+                                            <x-forms.select name="emergency_contact_relationship_" :label="__('system.employee_emergency_contact_relationship')" value="" :options="$emergency_contact_relationships" :is-required="true" />
                                         </div>
                                         <div class="col-12 col-lg-4">
-                                            <x-forms.text name="emergency_contact_phone_" :label="__('system.employee_emergency_contact_phone')" value="" />
+                                            <x-forms.text name="emergency_contact_phone_" :label="__('system.employee_emergency_contact_phone')" value="" :is-required="true" />
                                         </div>
                                     </div>
                                 </div>
@@ -198,26 +212,26 @@
                                     @for ($i = 1; $i <= count(old('emergency_contact_name')); $i++)
                                         <div class="row" data-emergency-contact="{{ $i }}">
                                             <div class="col-12 col-lg-4">
-                                                <x-forms.array.text name="emergency_contact_name[{{ $i }}]" :label="__('system.employee_emergency_contact_name')" :value="old('emergency_contact_name.' . $i)" />
+                                                <x-forms.array.text name="emergency_contact_name[{{ $i }}]" :label="__('system.employee_emergency_contact_name')" :value="old('emergency_contact_name.' . $i)" :is-required="true" />
                                             </div>
                                             <div class="col-12 col-lg-4">
-                                                <x-forms.array.select name="emergency_contact_relationship[{{ $i }}]" :label="__('system.employee_emergency_contact_relationship')" :value="old('emergency_contact_relationship.' . $i)" :options="$emergency_contact_relationships" />
+                                                <x-forms.array.select name="emergency_contact_relationship[{{ $i }}]" :label="__('system.employee_emergency_contact_relationship')" :value="old('emergency_contact_relationship.' . $i)" :options="$emergency_contact_relationships" :is-required="true" />
                                             </div>
                                             <div class="col-12 col-lg-4">
-                                                <x-forms.array.text name="emergency_contact_phone[{{ $i }}]" :label="__('system.employee_emergency_contact_phone')" :value="old('emergency_contact_phone.' . $i)" />
+                                                <x-forms.array.text name="emergency_contact_phone[{{ $i }}]" :label="__('system.employee_emergency_contact_phone')" :value="old('emergency_contact_phone.' . $i)" :is-required="true" />
                                             </div>
                                         </div>
                                     @endfor
                                 @else
                                     <div class="row" data-emergency-contact="1">
                                         <div class="col-12 col-lg-4">
-                                            <x-forms.text name="emergency_contact_name[1]" :label="__('system.employee_emergency_contact_name')" value="" />
+                                            <x-forms.text name="emergency_contact_name[1]" :label="__('system.employee_emergency_contact_name')" value="" :is-required="true" />
                                         </div>
                                         <div class="col-12 col-lg-4">
-                                            <x-forms.select name="emergency_contact_relationship[1]" :label="__('system.employee_emergency_contact_relationship')" value="" :options="$emergency_contact_relationships" />
+                                            <x-forms.select name="emergency_contact_relationship[1]" :label="__('system.employee_emergency_contact_relationship')" value="" :options="$emergency_contact_relationships" :is-required="true" />
                                         </div>
                                         <div class="col-12 col-lg-4">
-                                            <x-forms.text name="emergency_contact_phone[1]" :label="__('system.employee_emergency_contact_phone')" value="" />
+                                            <x-forms.text name="emergency_contact_phone[1]" :label="__('system.employee_emergency_contact_phone')" value="" :is-required="true" />
                                         </div>
                                     </div>
                                 @endif
@@ -322,26 +336,26 @@
 
                                     <div class="row">
                                         <div class="col-12 col-lg-6">
-                                            <x-forms.select name="education_type[1]" :label="__('system.employee_education_type')" value="" :options="$education_types" />
+                                            <x-forms.select name="education_type[1]" :label="__('system.employee_education_type')" value="" :options="$education_types" :is-required="true" />
                                         </div>
                                         <div class="col-12 col-lg-6"></div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-12 col-lg-6">
-                                            <x-forms.date name="education_date_aquired[1]" :label="__('system.employee_education_date_aquired')" value="" />
+                                            <x-forms.date name="education_date_aquired[1]" :label="__('system.employee_education_date_aquired')" value="" :is-required="true" />
                                         </div>
                                         <div class="col-12 col-lg-6">
-                                            <x-forms.text name="education_grade[1]" :label="__('system.employee_education_grade')" value="" />
+                                            <x-forms.text name="education_grade[1]" :label="__('system.employee_education_grade')" value="" :is-required="true" />
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-12 col-lg-6">
-                                            <x-forms.text name="education_school_name[1]" :label="__('system.employee_education_school_name')" value="" />
+                                            <x-forms.text name="education_school_name[1]" :label="__('system.employee_education_school_name')" value="" :is-required="true" />
                                         </div>
                                         <div class="col-12 col-lg-6">
-                                            <x-forms.text name="education_city[1]" :label="__('system.employee_education_city')" value="" />
+                                            <x-forms.text name="education_city[1]" :label="__('system.employee_education_city')" value="" :is-required="true" />
                                         </div>
                                     </div>
 
@@ -645,10 +659,10 @@
 
                                         <div class="row">
                                             <div class="col-12 col-lg-6">
-                                                <x-forms.text name="exp_company_city[{{ $i }}]" :label="__('system.employee_exp_company_city')" :value="old('exp_company_city.' . $i)" />
+                                                <x-forms.array.text name="exp_company_city[{{ $i }}]" :label="__('system.employee_exp_company_city')" :value="old('exp_company_city.' . $i)" />
                                             </div>
                                             <div class="col-12 col-lg-6">
-                                                <x-forms.text name="exp_company_phone[{{ $i }}]" :label="__('system.employee_exp_company_phone')" :value="old('exp_company_phone.' . $i)" />
+                                                <x-forms.array.text name="exp_company_phone[{{ $i }}]" :label="__('system.employee_exp_company_phone')" :value="old('exp_company_phone.' . $i)" />
                                             </div>
                                         </div>
                                     </x-card>                                    
@@ -768,6 +782,9 @@
                                             <x-forms.radio name="nssf_occupation" id="nssfOccupationN" value="N" :label="__('system.n')" :is-checked="old('nssf_occupation') == 'N' ? true : false" />
                                         </div>
                                     </div>
+                                    @error('nssf_occupation')
+                                        <div class="small text-danger mb-3">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <x-forms.text name="nssf_occupation_number" :label="__('system.employee_nssf_occupation_number')" :value="old('nssf_occupation_number')" />
                                 <div class="row">
@@ -791,6 +808,9 @@
                                             <x-forms.radio name="nssf_health" id="nssfHealthN" value="N" :label="__('system.n')" :is-checked="old('nssf_health') == 'N' ? true : false" />
                                         </div>
                                     </div>
+                                    @error('nssf_health')
+                                        <div class="small text-danger mb-3">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <x-forms.text name="nssf_health_number" :label="__('system.employee_nssf_health_number')" :value="old('nssf_health_number')" />
                                 <div class="row">

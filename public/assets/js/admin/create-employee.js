@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     const addExp = document.getElementById('addExp');
-    let currentExpNumber = document.querySelectorAll('div.card[data-card]').length;
+    let currentExpNumber = document.querySelectorAll('div.card[data-exp]').length;
     addExp.addEventListener('click', function () {
         const elem = document.getElementById('exampleExpCard').querySelector('div.card');
         let clone = elem.cloneNode(true);
@@ -187,5 +187,20 @@ document.addEventListener('DOMContentLoaded', function () {
         changeIdAndLabel(clone, 'emergency_contact_phone_', 'emergency_contact_phone', currentEmergencyContact);
 
         anchorElement.after(clone);
+    });
+
+    const addressIsSameSwitch = document.getElementById('addressIsSame');
+    addressIsSameSwitch.addEventListener('change', function () {
+        const currentAddressFields = document.querySelectorAll('[data-address="current"]');
+        currentAddressFields.forEach(el => {
+            if (addressIsSameSwitch.checked) {
+                el.setAttribute('disabled', true);
+                el.value = '';
+                el.classList.remove('is-invalid');
+            }
+            else {
+                el.removeAttribute('disabled');
+            }
+        });
     });
 });
