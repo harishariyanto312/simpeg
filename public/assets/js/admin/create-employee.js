@@ -203,4 +203,27 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+
+    function nssfListener(type)  {
+        const nssfRadio = document.querySelectorAll('input[name="nssf_' + type + '"]');
+        nssfRadio.forEach(el => {
+            el.addEventListener('change', function () {
+                const currentValue = el.value;
+                const nssfFields = document.querySelectorAll('input[data-nssf="' + type + '"], select[data-nssf="' + type + '"]');
+                nssfFields.forEach(field => {
+                    if (currentValue == 'Y') {
+                        field.removeAttribute('disabled');
+                    }
+                    else {
+                        field.setAttribute('disabled', true);
+                        field.value = '';
+                        field.classList.remove('is-invalid');
+                    }
+                });
+            });
+        });
+    }
+
+    nssfListener('occupation');
+    nssfListener('health');
 });

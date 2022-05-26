@@ -20,6 +20,7 @@ class CreateEmployeesTable extends Migration
             $table->string('first_name')->nullable();
             $table->string('middle_name')->nullable();
             $table->string('last_name')->nullable();
+            $table->text('full_name')->nullable();
             $table->enum('sex', ['F', 'M'])->nullable();
             $table->string('birth_place')->nullable();
             $table->date('date_of_birth')->nullable();
@@ -42,9 +43,11 @@ class CreateEmployeesTable extends Migration
             $table->string('home_phone')->nullable();
             $table->string('mobile_phone')->nullable();
             $table->string('email_address')->nullable();
+            /*
             $table->string('emergency_contact_name')->nullable();
             $table->string('emergency_contact_relationship')->nullable();
             $table->string('emergency_contact_phone')->nullable();
+            */
             $table->integer('employee_status_id')->nullable();
             $table->integer('group_shift_id')->nullable();
             $table->enum('always_present', ['Y', 'N'])->default('N');

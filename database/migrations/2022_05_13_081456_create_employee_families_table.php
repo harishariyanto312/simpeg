@@ -17,6 +17,7 @@ class CreateEmployeeFamiliesTable extends Migration
             $table->id();
             $table->integer('employee_id');
             $table->string('name');
+            $table->string('relationship')->nullable();
             $table->enum('sex', ['F', 'M'])->nullable();
             $table->date('date_of_birth')->nullable();
             $table->enum('status', ['ALIVE', 'DIED', 'MARRIED', 'WORK', 'ADULT', 'SUPPORT'])->default('ALIVE');

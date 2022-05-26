@@ -15,6 +15,7 @@ class CreateEmployeeWorkExperiencesTable extends Migration
     {
         Schema::create('employee_work_experiences', function (Blueprint $table) {
             $table->id();
+            $table->integer('employee_id');
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->string('company_name')->nullable();

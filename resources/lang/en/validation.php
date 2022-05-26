@@ -108,7 +108,7 @@ return [
     'prohibits' => 'The :attribute field prohibits :other from being present.',
     'regex' => ':attribute tidak valid.',
     'required' => ':attribute tidak boleh kosong.',
-    'required_if' => 'The :attribute field is required when :other is :value.',
+    'required_if' => ':attribute tidak boleh kosong.',
     'required_unless' => ':attribute tidak boleh kosong.',
     'required_with' => ':attribute tidak boleh kosong.',
     'required_with_all' => ':attribute tidak boleh kosong.',
