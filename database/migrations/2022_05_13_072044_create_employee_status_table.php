@@ -16,6 +16,7 @@ class CreateEmployeeStatusTable extends Migration
         Schema::create('employee_status', function (Blueprint $table) {
             $table->id();
             $table->string('status');
+            $table->enum('has_end_date', ['Y', 'N'])->default('N');
         });
     }
 

@@ -32,4 +32,7 @@ Route::get('employees-json', [Controllers\EmployeeController::class, 'jsonIndex'
 Route::get('change-password', [Controllers\HomeController::class, 'editPassword'])->middleware(['auth'])->name('change_password');
 Route::put('change-password', [Controllers\HomeController::class, 'updatePassword'])->middleware(['auth']);
 
+Route::resource('employee-status', Controllers\EmployeeStatusController::class);
+Route::get('employee-status-json', [Controllers\EmployeeStatusController::class, 'jsonIndex'])->name('employee-status.index.json');
+
 require __DIR__.'/auth.php';

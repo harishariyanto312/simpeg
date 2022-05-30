@@ -11,7 +11,7 @@ use App\Models\EmployeeWorkExperience;
 
 class EmployeeController extends Controller
 {
-    private $item_limit = 10;
+    private $item_limit = 25;
 
     /**
      * Display a listing of the resource.
@@ -87,6 +87,12 @@ class EmployeeController extends Controller
                 'final_date' => $employee->final_date,
                 'basic_salary' => $employee->basic_salary(),
                 'salary_unit' => $employee->salary_unit(),
+                'bank_account_number' => $employee->bank_account_number,
+                'bank_account_name' => $employee->bank_account_name,
+                'nssf_occupation_number' => $employee->nssf_occupation_number,
+                'nssf_occupation_join_date' => $employee->nssf_occupation_join_date,
+                'nssf_health_number' => $employee->nssf_health_number,
+                'nssf_health_join_date' => $employee->nssf_health_join_date,
             ];
         }
 

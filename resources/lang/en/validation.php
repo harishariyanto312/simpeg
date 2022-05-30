@@ -228,6 +228,7 @@ return [
         'nssf_health_number' => 'Nomor BPJS Kesehatan',
         'nssf_health_join_year' => 'Tahun Kepesertaan',
         'nssf_health_join_month' => 'Bulan Kepesertaan',
+        'name' => 'Nama',
     ],
 
 ];

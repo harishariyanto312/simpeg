@@ -30,7 +30,8 @@
                 data-show-columns="true"
                 data-show-columns-toggle-all="true"
                 data-buttons-class="primary"
-                data-show-fullscreen="true">
+                data-show-fullscreen="true"
+                data-page-size="10">
                 <thead>
                     <tr>
                         <th data-field="name" data-sortable="true" data-class="bg-light" data-switchable="false">@lang('system.employee_full_name')</th>
@@ -62,6 +63,12 @@
                         <th data-field="final_date">@lang('system.employee_final_date_short')</th>
                         <th data-field="basic_salary">@lang('system.employee_basic_salary')</th>
                         <th data-field="salary_unit">@lang('system.employee_salary_unit')</th>
+                        <th data-field="bank_account_number">@lang('system.employee_bank_account_number')</th>
+                        <th data-field="bank_account_name">@lang('system.employee_bank_account_name')</th>
+                        <th data-field="nssf_occupation_number">@lang('system.employee_nssf_occupation_number')</th>
+                        <th data-field="nssf_occupation_join_date">@lang('system.nssf_occupation_join_year')</th>
+                        <th data-field="nssf_health_number">@lang('system.employee_nssf_health_number')</th>
+                        <th data-field="nssf_health_join_date">@lang('system.nssf_health_join_year')</th>
                     </tr>
                 </thead>
             </table>

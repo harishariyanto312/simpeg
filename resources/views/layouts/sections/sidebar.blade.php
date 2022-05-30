@@ -19,6 +19,30 @@
                     </a>
                 </li>
 
+                <li class="nav-item {{ in_array(Route::currentRouteName(), ['employee-status.index']) ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ in_array(Route::currentRouteName(), ['employee-status.index']) ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            @lang('system.master_data')
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('employee-status.index') }}" class="nav-link {{ Route::currentRouteName() == 'employee-status.index' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>@lang('system.employee_status')</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>@lang('system.group_shift')</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="nav-item">
                     <a href="{{ route('employees.index') }}" class="nav-link {{ Route::currentRouteName() == 'employees.index' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-rectangle-list"></i>

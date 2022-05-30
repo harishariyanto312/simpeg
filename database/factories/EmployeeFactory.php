@@ -49,6 +49,14 @@ class EmployeeFactory extends Factory
             'final_date' => $this->faker->dateTimeBetween('now', '+2 years'),
             'basic_salary' => $this->faker->numberBetween(10, 100) . '00000',
             'unit' => $this->faker->randomElement(['MONTH', 'WEEK', 'DAY', 'HOUR', 'MINUTE']),
+            'bank_account_number' => $this->faker->randomNumber(8, true),
+            'bank_account_name' => $first_name . ' ' . $last_name,
+            'nssf_occupation' => 'Y',
+            'nssf_occupation_number' => $this->faker->randomNumber(8, true),
+            'nssf_occupation_join_date' => $this->faker->dateTimeBetween('-3 years', 'now'),
+            'nssf_health' => 'Y',
+            'nssf_health_number' => $this->faker->randomNumber(8, true),
+            'nssf_health_join_date' => $this->faker->dateTimeBetween('-3 years', 'now'),
         ];
     }
 }
