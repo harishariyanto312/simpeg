@@ -254,5 +254,6 @@ return [
     'employee_status_has_end_date' => 'Status memiliki tanggal berakhir',
     'employee_status_has_end_date_short' => 'Status Memiliki Tgl Berakhir',
     'employee_status_edit' => 'Edit Status Pegawai',
-    'group_shift' => 'Grup Shift'
+    'group_shift' => 'Grup Shift',
+    'group_shift_create' => 'Tambah Grup Shift',
 ];

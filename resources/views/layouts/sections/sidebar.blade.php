@@ -19,8 +19,8 @@
                     </a>
                 </li>
 
-                <li class="nav-item {{ in_array(Route::currentRouteName(), ['employee-status.index']) ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ in_array(Route::currentRouteName(), ['employee-status.index']) ? 'active' : '' }}">
+                <li class="nav-item {{ in_array(Route::currentRouteName(), ['employee-status.index', 'group-shift.index']) ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ in_array(Route::currentRouteName(), ['employee-status.index', 'group-shift.index']) ? 'active' : '' }}">
                         <i class="nav-icon fas fa-table"></i>
                         <p>
                             @lang('system.master_data')
@@ -35,7 +35,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('group-shift.index') }}" class="nav-link {{ Route::currentRouteName() == 'group-shift.index' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>@lang('system.group_shift')</p>
                             </a>

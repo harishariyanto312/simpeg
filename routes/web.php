@@ -35,4 +35,6 @@ Route::put('change-password', [Controllers\HomeController::class, 'updatePasswor
 Route::resource('employee-status', Controllers\EmployeeStatusController::class);
 Route::get('employee-status-json', [Controllers\EmployeeStatusController::class, 'jsonIndex'])->name('employee-status.index.json');
 
+Route::resource('group-shift', Controllers\GroupShiftController::class);
+
 require __DIR__.'/auth.php';
