@@ -6,6 +6,20 @@
             @if (session('status'))
                 <x-alert>{{ session('status') }}</x-alert>
             @endif
+
+            <x-card>
+
+                <form action="{{ route('group-shift.store') }}" method="POST">
+                    @csrf
+
+                    <x-forms.text name="name" :label="__('system.group_shift_name')" :value="old('name')" />
+
+                    <button class="btn btn-primary" type="submit">
+                        @lang('system.save')
+                    </button>
+                </form>
+
+            </x-card>
         </div>
     </div>
 </x-admin-layout>

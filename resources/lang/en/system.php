@@ -256,4 +256,5 @@ return [
     'employee_status_edit' => 'Edit Status Pegawai',
     'group_shift' => 'Grup Shift',
     'group_shift_create' => 'Tambah Grup Shift',
+    'group_shift_name' => 'Nama Grup Shift',
 ];

@@ -36,5 +36,6 @@ Route::resource('employee-status', Controllers\EmployeeStatusController::class);
 Route::get('employee-status-json', [Controllers\EmployeeStatusController::class, 'jsonIndex'])->name('employee-status.index.json');
 
 Route::resource('group-shift', Controllers\GroupShiftController::class);
+Route::get('group-shift-json', [Controllers\GroupShiftController::class, 'jsonIndex'])->name('group-shift.index.json');
 
 require __DIR__.'/auth.php';

@@ -15,4 +15,46 @@
             <a href="{{ route('group-shift.create') }}" class="btn btn-primary">@lang('system.group_shift_create')</a>
         </div>
     </div>
+
+    <div class="card">
+        <div class="card-body">
+            <table 
+                id="mainTable"
+                data-toggle="table"
+                data-url="{{ route('group-shift.index.json') }}"
+                data-side-pagination="server"
+                data-pagination="true"
+                data-page-size="10">
+                <thead>
+                    <tr>
+                        <th data-field="group_shift" data-sortable="true">@lang('system.group_shift_name')</th>
+                        <th data-field="menu" data-align="center">@lang('system.menu')</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+    <x-modal-delete :item="__('system.group_shift')"></x-modal-delete>
+
+    @push('styles')
+        <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-tables/bootstrap-table.min.css') }}">
+        <style>
+            th, td {
+                white-space: nowrap;
+            }
+        </style>
+    @endpush
+
+    @push('scripts')
+        <script src="{{ asset('assets/plugins/bootstrap-tables/bootstrap-table.min.js') }}"></script>
+        <script src="{{ asset('assets/js/admin/delete-datatables.js') }}" defer></script>
+        <script>
+            $('#mainTable').bootstrapTable({
+                onLoadSuccess: () => {
+                    attachEventHandler();
+                }
+            });
+        </script>
+    @endpush
 </x-admin-layout>
