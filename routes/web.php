@@ -38,4 +38,9 @@ Route::get('employee-status-json', [Controllers\EmployeeStatusController::class,
 Route::resource('group-shift', Controllers\GroupShiftController::class);
 Route::get('group-shift-json', [Controllers\GroupShiftController::class, 'jsonIndex'])->name('group-shift.index.json');
 
+Route::resource('grades', Controllers\GradeController::class);
+Route::get('grades-json', [Controllers\GradeController::class, 'jsonIndex'])->name('grades.index.json');
+
+Route::resource('titles', Controllers\TitleController::class);
+
 require __DIR__.'/auth.php';

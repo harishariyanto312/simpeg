@@ -19,7 +19,7 @@
                     </a>
                 </li>
 
-                <li class="nav-item {{ in_array(Route::currentRouteName(), ['employee-status.index', 'group-shift.index']) ? 'menu-open' : '' }}">
+                <li class="nav-item {{ in_array(Route::currentRouteName(), ['employee-status.index', 'group-shift.index', 'grades.index', 'titles.index']) ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ in_array(Route::currentRouteName(), ['employee-status.index', 'group-shift.index']) ? 'active' : '' }}">
                         <i class="nav-icon fas fa-table"></i>
                         <p>
@@ -38,6 +38,18 @@
                             <a href="{{ route('group-shift.index') }}" class="nav-link {{ Route::currentRouteName() == 'group-shift.index' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>@lang('system.group_shift')</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('grades.index') }}" class="nav-link {{ Route::currentRouteName() == 'grades.index' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>@lang('system.grades')</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('titles.index') }}" class="nav-link {{ Route::currentRouteName() == 'titles.index' ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                                <p>@lang('system.titles')</p>
                             </a>
                         </li>
                     </ul>

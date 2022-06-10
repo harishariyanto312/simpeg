@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\GroupShift;
 use Illuminate\Http\Request;
+use App\Models\Grade;
 
-class GroupShiftController extends Controller
+class GradeController extends Controller
 {
     private $item_limit = 25;
 
@@ -18,45 +18,49 @@ class GroupShiftController extends Controller
     {
         $breadcrumb = [
             __('system.admin_control_panel') => route('index'),
-            __('system.group_shift') => ''
+            __('system.grades') => ''
         ];
 
-        return view('pages.group-shift.index', compact('breadcrumb'));
+        return view('pages.grades.index', compact('breadcrumb'));
     }
 
     public function jsonIndex(Request $request)
     {
         $params_offset = $request->query('offset', 0);
         $params_limit = $request->query('limit', $this->item_limit);
-        $params_sort = $request->query('sort', 'group_shift');
+        $params_sort = $request->query('sort', 'grade');
         $params_order = $request->query('order', 'asc');
 
-        $group_shift_total = GroupShift::count();
+        $grades_total = Grade::count();
 
         $rows = [];
 
-        if ($params_sort == 'group-shift') {
-            $params_sort = 'group-shift';
+        if ($params_sort == 'grade') {
+            $params_sort = 'grade';
+        }
+        elseif ($params_sort == 'code') {
+            $params_sort = 'code';
         }
 
-        $group_shift = GroupShift::orderBy($params_sort, $params_order);
+        $grades = Grade::orderBy($params_sort, $params_order);
 
-        $group_shift_filtered = $group_shift->count();
+        $grades_filtered = $grades->count();
 
-        $group_shift = $group_shift->skip($params_offset)
+        $grades = $grades->skip($params_offset)
             ->take($params_limit)
             ->get();
         
-        foreach ($group_shift as $group_shift_item) {
+        foreach ($grades as $grade) {
             $rows[] = [
-                'group_shift' => $group_shift_item->group_shift,
-                'menu' => view('pages.group-shift.row-menu', ['group_shift_item' => $group_shift_item])->render()
+                'grade' => strtoupper($grade->grade),
+                'code' => strtoupper($grade->code),
+                'menu' => view('pages.grades.row-menu', ['grade' => $grade])->render()
             ];
         }
 
         return [
-            'total' => $group_shift_filtered,
-            'totalNotFiltered' => $group_shift_total,
+            'total' => $grades_filtered,
+            'totalNotFiltered' => $grades_total,
             'rows' => $rows
         ];
     }
@@ -70,11 +74,11 @@ class GroupShiftController extends Controller
     {
         $breadcrumb = [
             __('system.admin_control_panel') => route('index'),
-            __('system.group_shift') => route('group-shift.index'),
-            __('system.group_shift_create') => ''
+            __('system.grades') => route('grades.index'),
+            __('system.grades_create') => ''
         ];
 
-        return view('pages.group-shift.create', compact('breadcrumb'));
+        return view('pages.grades.create', compact('breadcrumb'));
     }
 
     /**
@@ -86,25 +90,27 @@ class GroupShiftController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => ['required', 'max:15']
+            'grade' => ['required', 'max:32'],
+            'code' => ['required', 'max:5']
         ]);
 
-        GroupShift::create([
-            'group_shift' => $request->name
+        Grade::create([
+            'grade' => $request->grade,
+            'code' => $request->code
         ]);
 
         $request->session()->flash('status', __('system.saved'));
 
-        return redirect()->route('group-shift.create');
+        return redirect()->route('grades.create');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\GroupShift  $groupShift
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(GroupShift $groupShift)
+    public function show($id)
     {
         //
     }
@@ -112,51 +118,53 @@ class GroupShiftController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\GroupShift  $groupShift
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(GroupShift $group_shift)
+    public function edit(Grade $grade)
     {
         $breadcrumb = [
             __('system.admin_control_panel') => route('index'),
-            __('system.group_shift') => route('group-shift.index'),
-            __('system.group_shift_edit') => ''
+            __('system.grades') => route('grades.index'),
+            __('system.grades_edit') => ''
         ];
 
-        return view('pages.group-shift.edit', compact('breadcrumb', 'group_shift'));
+        return view('pages.grades.edit', compact('breadcrumb', 'grade'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\GroupShift  $groupShift
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, GroupShift $group_shift)
+    public function update(Request $request, Grade $grade)
     {
         $validated = $request->validate([
-            'name' => ['required', 'max:15']
+            'grade' => ['required', 'max:32'],
+            'code' => ['required', 'max:5']
         ]);
 
-        $group_shift->update([
-            'group_shift' => $request->name
+        $grade->update([
+            'grade' => $request->grade,
+            'code' => $request->code
         ]);
 
         $request->session()->flash('status', __('system.saved'));
 
-        return redirect()->route('group-shift.edit', ['group_shift' => $group_shift]);
+        return redirect()->route('grades.edit', ['grade' => $grade]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\GroupShift  $groupShift
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, GroupShift $group_shift)
+    public function destroy(Request $request, Grade $grade)
     {
-        $group_shift->delete();
+        $grade->delete();
         $request->session()->flash('status', __('system.deleted'));
         return redirect()->back();
     }
