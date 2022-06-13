@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Title;
+use App\Models\Location;
 use Illuminate\Http\Request;
 
-class TitleController extends Controller
+class LocationController extends Controller
 {
     private $item_limit = 25;
 
@@ -18,45 +18,45 @@ class TitleController extends Controller
     {
         $breadcrumb = [
             __('system.admin_control_panel') => route('index'),
-            __('system.titles') => ''
+            __('system.locations') => ''
         ];
 
-        return view('pages.titles.index', compact('breadcrumb'));
+        return view('pages.locations.index', compact('breadcrumb'));
     }
 
     public function jsonIndex(Request $request)
     {
         $params_offset = $request->query('offset', 0);
         $params_limit = $request->query('limit', $this->item_limit);
-        $params_sort = $request->query('sort', 'title');
+        $params_sort = $request->query('sort', 'location');
         $params_order = $request->query('order', 'asc');
 
-        $titles_total = Title::count();
+        $locations_total = Location::count();
 
         $rows = [];
 
-        if ($params_sort == 'title') {
-            $params_sort = 'title';
+        if ($params_sort == 'location') {
+            $params_sort = 'location';
         }
 
-        $titles = Title::orderBy($params_sort, $params_order);
+        $locations = Location::orderBy($params_sort, $params_order);
 
-        $titles_filtered = $titles->count();
+        $locations_filtered = $locations->count();
 
-        $titles = $titles->skip($params_offset)
+        $locations = $locations->skip($params_offset)
             ->take($params_limit)
             ->get();
-
-        foreach ($titles as $title) {
+        
+        foreach ($locations as $location) {
             $rows[] = [
-                'title' => strtoupper($title->title),
-                'menu' => view('pages.titles.row-menu', ['title' => $title])->render()
+                'location' => strtoupper($location->location),
+                'menu' => view('pages.locations.row-menu', ['location' => $location])->render()
             ];
         }
 
         return [
-            'total' => $titles_filtered,
-            'totalNotFiltered' => $titles_total,
+            'total' => $locations_filtered,
+            'totalNotFiltered' => $locations_total,
             'rows' => $rows
         ];
     }
@@ -70,11 +70,11 @@ class TitleController extends Controller
     {
         $breadcrumb = [
             __('system.admin_control_panel') => route('index'),
-            __('system.titles') => route('titles.index'),
-            __('system.titles_create') => ''
+            __('system.locations') => route('locations.index'),
+            __('system.locations_create') => ''
         ];
 
-        return view('pages.titles.create', compact('breadcrumb'));
+        return view('pages.locations.create', compact('breadcrumb'));
     }
 
     /**
@@ -86,25 +86,25 @@ class TitleController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => ['required', 'max:32']
+            'location' => ['required', 'max:64']
         ]);
 
-        Title::create([
-            'title' => $request->title
+        Location::create([
+            'location' => $request->location
         ]);
 
         $request->session()->flash('status', __('system.saved'));
 
-        return redirect()->route('titles.index');
+        return redirect()->route('locations.create');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Title  $title
+     * @param  \App\Models\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function show(Title $title)
+    public function show(Location $location)
     {
         //
     }
@@ -112,51 +112,51 @@ class TitleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Title  $title
+     * @param  \App\Models\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function edit(Title $title)
+    public function edit(Location $location)
     {
         $breadcrumb = [
             __('system.admin_control_panel') => route('index'),
-            __('system.titles') => route('titles.index'),
-            __('system.titles_edit') => ''
+            __('system.locations') => route('locations.index'),
+            __('system.locations_edit') => ''
         ];
 
-        return view('pages.titles.edit', compact('breadcrumb', 'title'));
+        return view('pages.locations.edit', compact('breadcrumb', 'location'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Title  $title
+     * @param  \App\Models\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Title $title)
+    public function update(Request $request, Location $location)
     {
         $validated = $request->validate([
-            'title' => ['required', 'max:32']
+            'location' => ['required', 'max:64']
         ]);
 
-        $title->update([
-            'title' => $request->title
+        $location->update([
+            'location' => $request->location
         ]);
 
         $request->session()->flash('status', __('system.saved'));
 
-        return redirect()->route('titles.edit', ['title' => $title]);
+        return redirect()->route('locations.edit', ['location' => $location]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Title  $title
+     * @param  \App\Models\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Title $title)
+    public function destroy(Request $request, Location $location)
     {
-        $title->delete();
+        $location->delete();
         $request->session()->flash('status', __('system.deleted'));
         return redirect()->back();
     }

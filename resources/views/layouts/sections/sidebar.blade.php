@@ -19,7 +19,7 @@
                     </a>
                 </li>
 
-                <li class="nav-item {{ in_array(Route::currentRouteName(), ['employee-status.index', 'group-shift.index', 'grades.index', 'titles.index']) ? 'menu-open' : '' }}">
+                <li class="nav-item {{ in_array(Route::currentRouteName(), ['employee-status.index', 'group-shift.index', 'grades.index', 'titles.index', 'locations.index', 'accounts.index', 'banks.index', 'company-bank-accounts.index']) ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ in_array(Route::currentRouteName(), ['employee-status.index', 'group-shift.index']) ? 'active' : '' }}">
                         <i class="nav-icon fas fa-table"></i>
                         <p>
@@ -48,8 +48,32 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('titles.index') }}" class="nav-link {{ Route::currentRouteName() == 'titles.index' ? 'active' : '' }}">
-                            <i class="far fa-circle nav-icon"></i>
+                                <i class="far fa-circle nav-icon"></i>
                                 <p>@lang('system.titles')</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('locations.index') }}" class="nav-link {{ Route::currentRouteName() == 'locations.index' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>@lang('system.locations')</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('accounts.index') }}" class="nav-link {{ Route::currentRouteName() == 'accounts.index' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>@lang('system.accounts')</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('banks.index') }}" class="nav-link {{ Route::currentRouteName() == 'banks.index' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>@lang('system.banks')</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('company-bank-accounts.index') }}" class="nav-link {{ Route::currentRouteName() == 'company-bank-accounts.index' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>@lang('system.company_bank_accounts')</p>
                             </a>
                         </li>
                     </ul>

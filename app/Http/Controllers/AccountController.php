@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Title;
+use App\Models\Account;
 use Illuminate\Http\Request;
 
-class TitleController extends Controller
+class AccountController extends Controller
 {
     private $item_limit = 25;
 
@@ -18,45 +18,45 @@ class TitleController extends Controller
     {
         $breadcrumb = [
             __('system.admin_control_panel') => route('index'),
-            __('system.titles') => ''
+            __('system.accounts') => ''
         ];
 
-        return view('pages.titles.index', compact('breadcrumb'));
+        return view('pages.accounts.index', compact('breadcrumb'));
     }
 
     public function jsonIndex(Request $request)
     {
         $params_offset = $request->query('offset', 0);
         $params_limit = $request->query('limit', $this->item_limit);
-        $params_sort = $request->query('sort', 'title');
+        $params_sort = $request->query('sort', 'account');
         $params_order = $request->query('order', 'asc');
 
-        $titles_total = Title::count();
+        $accounts_total = Account::count();
 
         $rows = [];
 
-        if ($params_sort == 'title') {
-            $params_sort = 'title';
+        if ($params_sort == 'account') {
+            $params_sort = 'account';
         }
 
-        $titles = Title::orderBy($params_sort, $params_order);
+        $accounts = Account::orderBy($params_sort, $params_order);
 
-        $titles_filtered = $titles->count();
+        $accounts_filtered = $accounts->count();
 
-        $titles = $titles->skip($params_offset)
+        $accounts = $accounts->skip($params_offset)
             ->take($params_limit)
             ->get();
-
-        foreach ($titles as $title) {
+        
+        foreach ($accounts as $account) {
             $rows[] = [
-                'title' => strtoupper($title->title),
-                'menu' => view('pages.titles.row-menu', ['title' => $title])->render()
+                'account' => strtoupper($account->account),
+                'menu' => view('pages.accounts.row-menu', ['account' => $account])->render()
             ];
         }
 
         return [
-            'total' => $titles_filtered,
-            'totalNotFiltered' => $titles_total,
+            'total' => $accounts_total,
+            'totalNotFiltered' => $accounts_filtered,
             'rows' => $rows
         ];
     }
@@ -70,11 +70,11 @@ class TitleController extends Controller
     {
         $breadcrumb = [
             __('system.admin_control_panel') => route('index'),
-            __('system.titles') => route('titles.index'),
-            __('system.titles_create') => ''
+            __('system.accounts') => route('accounts.index'),
+            __('system.accounts_create') => ''
         ];
 
-        return view('pages.titles.create', compact('breadcrumb'));
+        return view('pages.accounts.create', compact('breadcrumb'));
     }
 
     /**
@@ -86,25 +86,25 @@ class TitleController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => ['required', 'max:32']
+            'account' => ['required', 'max:64']
         ]);
 
-        Title::create([
-            'title' => $request->title
+        Account::create([
+            'account' => $request->account
         ]);
 
         $request->session()->flash('status', __('system.saved'));
 
-        return redirect()->route('titles.index');
+        return redirect()->route('accounts.create');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Title  $title
+     * @param  \App\Models\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function show(Title $title)
+    public function show(Account $account)
     {
         //
     }
@@ -112,51 +112,51 @@ class TitleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Title  $title
+     * @param  \App\Models\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function edit(Title $title)
+    public function edit(Account $account)
     {
         $breadcrumb = [
             __('system.admin_control_panel') => route('index'),
-            __('system.titles') => route('titles.index'),
-            __('system.titles_edit') => ''
+            __('system.accounts') => route('accounts.index'),
+            __('system.accounts_edit') => ''
         ];
 
-        return view('pages.titles.edit', compact('breadcrumb', 'title'));
+        return view('pages.accounts.edit', compact('breadcrumb', 'account'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Title  $title
+     * @param  \App\Models\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Title $title)
+    public function update(Request $request, Account $account)
     {
         $validated = $request->validate([
-            'title' => ['required', 'max:32']
+            'account' => ['required', 'max:64']
         ]);
 
-        $title->update([
-            'title' => $request->title
+        $account->update([
+            'account' => $request->account
         ]);
 
         $request->session()->flash('status', __('system.saved'));
 
-        return redirect()->route('titles.edit', ['title' => $title]);
+        return redirect()->route('accounts.edit', ['account' => $account]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Title  $title
+     * @param  \App\Models\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Title $title)
+    public function destroy(Request $request, Account $account)
     {
-        $title->delete();
+        $account->delete();
         $request->session()->flash('status', __('system.deleted'));
         return redirect()->back();
     }

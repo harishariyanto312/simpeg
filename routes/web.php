@@ -42,5 +42,17 @@ Route::resource('grades', Controllers\GradeController::class);
 Route::get('grades-json', [Controllers\GradeController::class, 'jsonIndex'])->name('grades.index.json');
 
 Route::resource('titles', Controllers\TitleController::class);
+Route::get('titles-json', [Controllers\TitleController::class, 'jsonIndex'])->name('titles.index.json');
+
+Route::resource('locations', Controllers\LocationController::class);
+Route::get('locations-json', [Controllers\LocationController::class, 'jsonIndex'])->name('locations.index.json');
+
+Route::resource('accounts', Controllers\AccountController::class);
+Route::get('accounts-json', [Controllers\AccountController::class, 'jsonIndex'])->name('accounts.index.json');
+
+Route::resource('banks', Controllers\BankController::class);
+Route::get('banks-json', [Controllers\BankController::class, 'jsonIndex'])->name('banks.index.json');
+
+Route::resource('company-bank-accounts', Controllers\CompanyBankAccountController::class);
 
 require __DIR__.'/auth.php';

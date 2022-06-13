@@ -1,5 +1,5 @@
 <x-admin-layout :breadcrumb="$breadcrumb">
-    <x-slot name="page_title">@lang('system.titles')</x-slot>
+    <x-slot name="page_title">@lang('system.accounts')</x-slot>
 
     @if (session('error'))
         <x-alert type="danger">{{ session('error') }}</x-alert>
@@ -12,7 +12,7 @@
     <div class="mb-3 d-flex justify-content-between">
         <div></div>
         <div>
-            <a href="{{ route('titles.create') }}" class="btn btn-primary">@lang('system.titles_create')</a>
+            <a href="{{ route('accounts.create') }}" class="btn btn-primary">@lang('system.accounts_create')</a>
         </div>
     </div>
 
@@ -21,13 +21,13 @@
             <table
                 id="mainTable"
                 data-toggle="table"
-                data-url="{{ route('titles.index.json') }}"
+                data-url="{{ route('accounts.index.json') }}"
                 data-side-pagination="server"
                 data-pagination="true"
                 data-page-size="10">
                 <thead>
                     <tr>
-                        <th data-field="title" data-sortable="true">@lang('system.title_title')</th>
+                        <th data-field="account" data-sortable="true">@lang('system.account_account')</th>
                         <th data-field="menu" data-align="center">@lang('system.menu')</th>
                     </tr>
                 </thead>
@@ -35,7 +35,7 @@
         </div>
     </div>
 
-    <x-modal-delete :item="__('system.title')"></x-modal-delete>
+    <x-modal-delete :item="__('system.account')"></x-modal-delete>
 
     @push('styles')
         <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-tables/bootstrap-table.min.css') }}">

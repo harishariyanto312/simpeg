@@ -266,17 +266,17 @@
 
                                     <div class="row">
                                         <div class="col-12 col-lg-6">
-                                            <x-forms.select name="education_type_" :label="__('system.employee_education_type')" value="" :options="$education_types" />
+                                            <x-forms.select name="education_type_" :label="__('system.employee_education_type')" value="" :options="$education_types" :is-required="true" />
                                         </div>
                                         <div class="col-12 col-lg-6"></div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-12 col-lg-6">
-                                            <x-forms.date name="education_date_aquired_" :label="__('system.employee_education_date_aquired')" value="" />
+                                            <x-forms.date name="education_date_aquired_" :label="__('system.employee_education_date_aquired')" value="" :is-required="true" />
                                         </div>
                                         <div class="col-12 col-lg-6">
-                                            <x-forms.text name="education_grade_" :label="__('system.employee_education_grade')" value="" />
+                                            <x-forms.text name="education_grade_" :label="__('system.employee_education_grade')" value="" :is-required="true" />
                                         </div>
                                     </div>
 

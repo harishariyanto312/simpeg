@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Title;
+use App\Models\Bank;
 use Illuminate\Http\Request;
 
-class TitleController extends Controller
+class BankController extends Controller
 {
     private $item_limit = 25;
 
@@ -18,45 +18,45 @@ class TitleController extends Controller
     {
         $breadcrumb = [
             __('system.admin_control_panel') => route('index'),
-            __('system.titles') => ''
+            __('system.banks') => ''
         ];
 
-        return view('pages.titles.index', compact('breadcrumb'));
+        return view('pages.banks.index', compact('breadcrumb'));
     }
 
     public function jsonIndex(Request $request)
     {
         $params_offset = $request->query('offset', 0);
         $params_limit = $request->query('limit', $this->item_limit);
-        $params_sort = $request->query('sort', 'title');
+        $params_sort = $request->query('sort', 'bank');
         $params_order = $request->query('order', 'asc');
 
-        $titles_total = Title::count();
+        $banks_total = Bank::count();
 
         $rows = [];
 
-        if ($params_sort == 'title') {
-            $params_sort = 'title';
+        if ($params_sort == 'bank') {
+            $params_sort = 'bank';
         }
 
-        $titles = Title::orderBy($params_sort, $params_order);
+        $banks = Bank::orderBy($params_sort, $params_order);
 
-        $titles_filtered = $titles->count();
+        $banks_filtered = $banks->count();
 
-        $titles = $titles->skip($params_offset)
+        $banks = $banks->skip($params_offset)
             ->take($params_limit)
             ->get();
-
-        foreach ($titles as $title) {
+        
+        foreach ($banks as $bank) {
             $rows[] = [
-                'title' => strtoupper($title->title),
-                'menu' => view('pages.titles.row-menu', ['title' => $title])->render()
+                'bank' => strtoupper($bank->bank),
+                'menu' => view('pages.banks.row-menu', ['bank' => $bank])->render()
             ];
         }
 
         return [
-            'total' => $titles_filtered,
-            'totalNotFiltered' => $titles_total,
+            'total' => $banks_total,
+            'totalNotFiltered' => $banks_filtered,
             'rows' => $rows
         ];
     }
@@ -70,11 +70,11 @@ class TitleController extends Controller
     {
         $breadcrumb = [
             __('system.admin_control_panel') => route('index'),
-            __('system.titles') => route('titles.index'),
-            __('system.titles_create') => ''
+            __('system.banks') => route('banks.index'),
+            __('system.banks_create') => ''
         ];
 
-        return view('pages.titles.create', compact('breadcrumb'));
+        return view('pages.banks.create', compact('breadcrumb'));
     }
 
     /**
@@ -86,25 +86,25 @@ class TitleController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => ['required', 'max:32']
+            'bank' => ['required', 'max:64']
         ]);
 
-        Title::create([
-            'title' => $request->title
+        Bank::create([
+            'bank' => $request->bank
         ]);
 
         $request->session()->flash('status', __('system.saved'));
 
-        return redirect()->route('titles.index');
+        return redirect()->route('banks.create');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Title  $title
+     * @param  \App\Models\Bank  $bank
      * @return \Illuminate\Http\Response
      */
-    public function show(Title $title)
+    public function show(Bank $bank)
     {
         //
     }
@@ -112,51 +112,51 @@ class TitleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Title  $title
+     * @param  \App\Models\Bank  $bank
      * @return \Illuminate\Http\Response
      */
-    public function edit(Title $title)
+    public function edit(Bank $bank)
     {
         $breadcrumb = [
             __('system.admin_control_panel') => route('index'),
-            __('system.titles') => route('titles.index'),
-            __('system.titles_edit') => ''
+            __('system.banks') => route('banks.index'),
+            __('system.banks_edit') => ''
         ];
 
-        return view('pages.titles.edit', compact('breadcrumb', 'title'));
+        return view('pages.banks.edit', compact('breadcrumb', 'bank'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Title  $title
+     * @param  \App\Models\Bank  $bank
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Title $title)
+    public function update(Request $request, Bank $bank)
     {
         $validated = $request->validate([
-            'title' => ['required', 'max:32']
+            'bank' => ['required', 'max:64']
         ]);
 
-        $title->update([
-            'title' => $request->title
+        $bank->update([
+            'bank' => $request->bank
         ]);
 
         $request->session()->flash('status', __('system.saved'));
 
-        return redirect()->route('titles.edit', ['title' => $title]);
+        return redirect()->route('banks.edit', ['bank' => $bank]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Title  $title
+     * @param  \App\Models\Bank  $bank
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Title $title)
+    public function destroy(Request $request, Bank $bank)
     {
-        $title->delete();
+        $bank->delete();
         $request->session()->flash('status', __('system.deleted'));
         return redirect()->back();
     }
