@@ -284,6 +284,12 @@ return [
     'banks_create' => 'Tambah Bank',
     'banks_edit' => 'Edit Bank',
     'bank_bank' => 'Nama Bank',
+    'select_bank' => 'Pilih Bank',
     'company_bank_accounts' => 'Rekening Perusahaan',
     'company_bank_accounts_create' => 'Tambah Rekening Perusahaan',
+    'bank_branch' => 'Unit Cabang Bank',
+    'bank_city' => 'Kota Pembuatan Rekening',
+    'bank_cif' => 'Customer Information File',
+    'bank_account_number' => 'Nomor Rekening Bank',
+    'bank_account_name' => 'Nama Pada Rekening Bank',
 ];

@@ -46,7 +46,7 @@ return [
     'email' => ':attribute tidak valid.',
     'ends_with' => 'The :attribute must end with one of the following: :values.',
     'enum' => 'The selected :attribute is invalid.',
-    'exists' => 'The selected :attribute is invalid.',
+    'exists' => ':attribute tidak valid.',
     'file' => 'The :attribute must be a file.',
     'filled' => ':attribute tidak boleh kosong.',
     'gt' => [
@@ -229,6 +229,7 @@ return [
         'nssf_health_join_year' => 'Tahun Kepesertaan',
         'nssf_health_join_month' => 'Bulan Kepesertaan',
         'name' => 'Nama',
+        'bank_id' => 'Bank'
     ],
 
 ];

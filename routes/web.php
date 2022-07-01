@@ -54,5 +54,6 @@ Route::resource('banks', Controllers\BankController::class);
 Route::get('banks-json', [Controllers\BankController::class, 'jsonIndex'])->name('banks.index.json');
 
 Route::resource('company-bank-accounts', Controllers\CompanyBankAccountController::class);
+Route::get('company-bank-accounts-json', [Controllers\CompanyBankAccountController::class, 'jsonIndex'])->name('company-bank-accounts.index.json');
 
 require __DIR__.'/auth.php';

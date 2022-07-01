@@ -15,4 +15,15 @@
             <a href="{{ route('company-bank-accounts.create') }}" class="btn btn-primary">@lang('system.company_bank_accounts_create')</a>
         </div>
     </div>
+
+    <div class="card">
+        <div class="card-body">
+            <table 
+                id="mainTable"
+                data-toggle="table"
+                data-url="{{ route('company-bank-accounts.index.json') }}">
+
+            </table>
+        </div>
+    </div>
 </x-admin-layout>
